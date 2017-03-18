@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : local
-Source Server Version : 50505
+Source Server         : my_con
+Source Server Version : 50717
 Source Host           : localhost:3306
-Source Database       : mszlachetka
+Source Database       : shop
 
 Target Server Type    : MYSQL
-Target Server Version : 50505
+Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-02-14 00:07:51
+Date: 2017-03-18 19:37:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -93,23 +93,6 @@ INSERT INTO `archiwumuzytkownicy` VALUES ('1', '&lt;noscript&gt;', 'dadad', 'adm
 INSERT INTO `archiwumuzytkownicy` VALUES ('1', '&lt;noscript&gt;', 'dadad', 'admin', '30db58c61d9ea3ceeb49', 'sad@das.asd', '3', 'scsd', '0', '2', 'u', null);
 INSERT INTO `archiwumuzytkownicy` VALUES ('4', 'asdasd', 'asdasd', '\\\\\\\\\\', '56f86375011caf02ee4f', 'dasdasf@sad.sa', '3', '12da', '12', '1', 'u', null);
 INSERT INTO `archiwumuzytkownicy` VALUES ('4', 'asdasd', 'asdasd', '\\\\\\\\\\', '56f86375011caf02ee4f', 'dasdasf@sad.sa', '4', '12da', '12', '1', 'u', null);
-
--- ----------------------------
--- Table structure for `atrybuty`
--- ----------------------------
-DROP TABLE IF EXISTS `atrybuty`;
-CREATE TABLE `atrybuty` (
-  `idAtrybutu` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `idNazwaAtrybutu` int(10) unsigned NOT NULL,
-  `wartosc` varchar(30) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`idAtrybutu`),
-  KEY `fk_idNazwaAtrybutu` (`idNazwaAtrybutu`),
-  CONSTRAINT `fk_idNazwaAtrybutu` FOREIGN KEY (`idNazwaAtrybutu`) REFERENCES `nazwyatrybotow` (`idNazwaAtrybutu`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- ----------------------------
--- Records of atrybuty
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for `blokady`
@@ -201,7 +184,7 @@ CREATE TABLE `kategorie` (
   `idKategorii` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nazwa` varchar(50) COLLATE utf8_polish_ci NOT NULL,
   PRIMARY KEY (`idKategorii`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 -- ----------------------------
 -- Records of kategorie
@@ -219,12 +202,11 @@ INSERT INTO `kategorie` VALUES ('7', 'Antyalergiczne');
 -- ----------------------------
 DROP TABLE IF EXISTS `komentarze`;
 CREATE TABLE `komentarze` (
-  `idKomentarza` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idProduktu` int(10) unsigned NOT NULL,
   `idUzytkownika` int(10) unsigned NOT NULL,
   `data` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `opis` text COLLATE utf8_polish_ci NOT NULL,
-  PRIMARY KEY (`idKomentarza`),
+  PRIMARY KEY (`idProduktu`,`idUzytkownika`),
   KEY `idProduktu` (`idProduktu`),
   KEY `Komentarze_idUzytkownika` (`idUzytkownika`),
   CONSTRAINT `Komentarze_ibfk_1` FOREIGN KEY (`idProduktu`) REFERENCES `produkty` (`idProduktu`),
@@ -278,64 +260,27 @@ INSERT INTO `miasta` VALUES ('7', 'Wrocław');
 INSERT INTO `miasta` VALUES ('8', 'Radom');
 
 -- ----------------------------
--- Table structure for `nazwyatrybotow`
--- ----------------------------
-DROP TABLE IF EXISTS `nazwyatrybotow`;
-CREATE TABLE `nazwyatrybotow` (
-  `idNazwaAtrybutu` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nazwa` varchar(30) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`idNazwaAtrybutu`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- ----------------------------
--- Records of nazwyatrybotow
--- ----------------------------
-INSERT INTO `nazwyatrybotow` VALUES ('1', 'Postać');
-INSERT INTO `nazwyatrybotow` VALUES ('2', 'Waga');
-INSERT INTO `nazwyatrybotow` VALUES ('3', 'Substancja czynna');
-INSERT INTO `nazwyatrybotow` VALUES ('4', 'Opakowanie');
-INSERT INTO `nazwyatrybotow` VALUES ('5', 'Zawartość_substancji');
-
--- ----------------------------
 -- Table structure for `oceny`
 -- ----------------------------
 DROP TABLE IF EXISTS `oceny`;
 CREATE TABLE `oceny` (
-  `idOceny` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idProduktu` int(10) unsigned NOT NULL,
-  `idUzytkownika` int(10) unsigned DEFAULT NULL,
+  `idUzytkownika` int(10) unsigned NOT NULL,
   `data` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `wartosc` decimal(3,1) unsigned NOT NULL,
-  PRIMARY KEY (`idOceny`),
+  PRIMARY KEY (`idProduktu`,`idUzytkownika`),
   KEY `Oceny_ibfk_1` (`idProduktu`),
   KEY `Oceny_idUzytkownika` (`idUzytkownika`),
   CONSTRAINT `Oceny_ibfk_1` FOREIGN KEY (`idProduktu`) REFERENCES `produkty` (`idProduktu`) ON DELETE CASCADE,
   CONSTRAINT `Oceny_idUzytkownika` FOREIGN KEY (`idUzytkownika`) REFERENCES `uzytkownicy` (`idUzytkownika`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 -- ----------------------------
 -- Records of oceny
 -- ----------------------------
-INSERT INTO `oceny` VALUES ('1', '2', '1', '2017-02-13 20:36:21', '5.0');
-INSERT INTO `oceny` VALUES ('2', '3', '1', '2017-02-13 20:44:26', '1.0');
-INSERT INTO `oceny` VALUES ('3', '11', '1', '2017-02-13 21:16:14', '9.0');
-
--- ----------------------------
--- Table structure for `pratr`
--- ----------------------------
-DROP TABLE IF EXISTS `pratr`;
-CREATE TABLE `pratr` (
-  `idProduktu` int(10) unsigned NOT NULL,
-  `idAtrybutu` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`idProduktu`,`idAtrybutu`),
-  KEY `fk_idAtrybutu` (`idAtrybutu`),
-  CONSTRAINT `fk_idAtrybutu` FOREIGN KEY (`idAtrybutu`) REFERENCES `atrybuty` (`idAtrybutu`),
-  CONSTRAINT `fk_idProduktu` FOREIGN KEY (`idProduktu`) REFERENCES `produkty` (`idProduktu`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- ----------------------------
--- Records of pratr
--- ----------------------------
+INSERT INTO `oceny` VALUES ('2', '1', '2017-02-13 20:36:21', '5.0');
+INSERT INTO `oceny` VALUES ('3', '1', '2017-02-13 20:44:26', '1.0');
+INSERT INTO `oceny` VALUES ('11', '1', '2017-02-13 21:16:14', '9.0');
 
 -- ----------------------------
 -- Table structure for `produkty`
@@ -393,41 +338,20 @@ INSERT INTO `produkty` VALUES ('27', 'sad2 32vxc', 'Lorem ipsum dolor sit amet, 
 -- ----------------------------
 DROP TABLE IF EXISTS `produktyzamowienia`;
 CREATE TABLE `produktyzamowienia` (
-  `idPrZam` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idProduktu` int(10) unsigned NOT NULL,
   `idZamowienia` int(10) unsigned NOT NULL,
   `ilosc` int(3) unsigned NOT NULL DEFAULT '1',
   `cenaZamowieniowa` decimal(6,2) unsigned NOT NULL,
-  PRIMARY KEY (`idPrZam`),
+  PRIMARY KEY (`idProduktu`,`idZamowienia`),
   KEY `ProduktyZamowienia_ibfk_1` (`idZamowienia`),
   KEY `ProduktyZamowienia_ibfk_2` (`idProduktu`),
   CONSTRAINT `ProduktyZamowienia_ibfk_1` FOREIGN KEY (`idZamowienia`) REFERENCES `zamowienia` (`idZamowienia`) ON DELETE CASCADE,
   CONSTRAINT `ProduktyZamowienia_ibfk_2` FOREIGN KEY (`idProduktu`) REFERENCES `produkty` (`idProduktu`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 -- ----------------------------
 -- Records of produktyzamowienia
 -- ----------------------------
-INSERT INTO `produktyzamowienia` VALUES ('1', '3', '1', '7', '0.00');
-INSERT INTO `produktyzamowienia` VALUES ('2', '1', '2', '4', '0.00');
-INSERT INTO `produktyzamowienia` VALUES ('3', '3', '3', '1', '0.00');
-INSERT INTO `produktyzamowienia` VALUES ('5', '1', '1', '1', '0.00');
-INSERT INTO `produktyzamowienia` VALUES ('6', '1', '4', '6', '0.00');
-INSERT INTO `produktyzamowienia` VALUES ('8', '2', '1', '3', '0.00');
-INSERT INTO `produktyzamowienia` VALUES ('9', '2', '6', '5', '0.00');
-INSERT INTO `produktyzamowienia` VALUES ('16', '3', '7', '3', '123.00');
-INSERT INTO `produktyzamowienia` VALUES ('18', '2', '7', '6', '12.30');
-INSERT INTO `produktyzamowienia` VALUES ('19', '1', '7', '33', '12.00');
-INSERT INTO `produktyzamowienia` VALUES ('20', '4', '7', '1', '32.00');
-INSERT INTO `produktyzamowienia` VALUES ('21', '1', '7', '5', '15.00');
-INSERT INTO `produktyzamowienia` VALUES ('22', '1', '8', '2', '15.00');
-INSERT INTO `produktyzamowienia` VALUES ('23', '3', '8', '9', '123.00');
-INSERT INTO `produktyzamowienia` VALUES ('25', '2', '8', '8', '12.30');
-INSERT INTO `produktyzamowienia` VALUES ('26', '2', '8', '1', '12.78');
-INSERT INTO `produktyzamowienia` VALUES ('27', '4', '8', '7', '32.00');
-INSERT INTO `produktyzamowienia` VALUES ('28', '3', '9', '53', '123.00');
-INSERT INTO `produktyzamowienia` VALUES ('29', '16', '9', '1', '1211.00');
-INSERT INTO `produktyzamowienia` VALUES ('31', '11', '9', '19', '123.00');
 
 -- ----------------------------
 -- Table structure for `sesja`
@@ -442,7 +366,7 @@ CREATE TABLE `sesja` (
   `czas` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `token` varchar(20) COLLATE utf8_polish_ci DEFAULT NULL,
   PRIMARY KEY (`idSesji`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 -- ----------------------------
 -- Records of sesja
@@ -543,14 +467,6 @@ CREATE TABLE `zamowienia` (
 -- ----------------------------
 -- Records of zamowienia
 -- ----------------------------
-INSERT INTO `zamowienia` VALUES ('1', '1', '2017-02-13 10:45:15', null, 'sdsd', '3', '3');
-INSERT INTO `zamowienia` VALUES ('2', '3', '2017-02-13 09:33:24', null, '', '1', '3');
-INSERT INTO `zamowienia` VALUES ('3', '3', null, null, null, null, null);
-INSERT INTO `zamowienia` VALUES ('4', '2', '2017-02-13 10:01:21', null, '', '3', '1');
-INSERT INTO `zamowienia` VALUES ('6', '1', '2017-02-13 15:56:38', null, '', '1', '3');
-INSERT INTO `zamowienia` VALUES ('7', '2', '2017-02-13 19:30:41', null, '', '1', '3');
-INSERT INTO `zamowienia` VALUES ('8', '1', '2017-02-13 20:37:50', null, '', '1', '3');
-INSERT INTO `zamowienia` VALUES ('9', '1', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `zdjecia`
