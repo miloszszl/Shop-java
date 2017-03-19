@@ -3,6 +3,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
+
     <session-factory>
         <property name="hibernate.dialect">
             org.hibernate.dialect.MySQLDialect
@@ -22,8 +23,10 @@
             root
         </property>
 
+        <mapping class="POJO.City"/>
         <!-- List of XML mapping files
         <mapping resource="Employee.hbm.xml"/>-->
 
     </session-factory>
+
 </hibernate-configuration>

@@ -7,10 +7,10 @@ import java.nio.BufferOverflowException;
  * Created by Miłosz on 15.03.2017.
  */
 @Entity
-@Table(name = "Miasta")
+@Table(name = "miasta")
 public class City {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idMiasta")
     private int idCity;
     @Column(name="nazwa")
