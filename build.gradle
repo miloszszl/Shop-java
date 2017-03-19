@@ -15,4 +15,6 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.2.8.Final'
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+    // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '4.3.7.RELEASE'
 }
