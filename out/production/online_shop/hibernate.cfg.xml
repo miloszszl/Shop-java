@@ -23,7 +23,6 @@
             root
         </property>
         <property name="show_sql">false</property>
-
         <mapping class="POJO.City"/>
 
 

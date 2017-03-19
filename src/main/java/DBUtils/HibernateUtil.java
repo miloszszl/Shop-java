@@ -1,11 +1,13 @@
 package DBUtils;
 
+import POJO.City;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -46,7 +48,7 @@ public class HibernateUtil implements DBUtil {
         session.close();
     }
 
-    public List read(Class c)
+    public List readAll(Class c)
     {
         SessionFactory sessionFactory=getSessionFactory();
         Session session = sessionFactory.openSession();
@@ -57,9 +59,88 @@ public class HibernateUtil implements DBUtil {
         return result;
     }
 
-    public void update(Object obj)
+    public Object readById(Class c,int id)
     {
-
+        SessionFactory sessionFactory=getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Object result = session.get(c,id);
+        session.getTransaction().commit();
+        session.close();
+        return result;
     }
 
+    public List customReadMany(String s)
+    {
+        SessionFactory sessionFactory=getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List result = session.createQuery(s).list();
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+
+    public Object customReadOne(String s)
+    {
+        SessionFactory sessionFactory=getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Object result = session.createQuery(s).uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+
+    public void deleteById(Class c,int id)
+    {
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        Object result = session.get(c,id);
+        session.delete(result);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void delete(Object obj)
+    {
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        session.delete(obj);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void updateOne(Object obj)
+    {
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(obj);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void updateMany(List li)
+    {
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+
+        for ( Object o : (List<Object>) li) {
+            session.update(o);
+        }
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void customQuery(String s)
+    {
+        SessionFactory sessionFactory=getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query q = session.createQuery(s);
+        q.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
 }
