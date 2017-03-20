@@ -3,11 +3,6 @@ package POJO.main;
 import DBUtils.DBUtil;
 import DBUtils.HibernateUtil;
 import POJO.City;
-import org.hibernate.Session;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.SessionFactory;
 import java.util.List;
 import java.util.logging.Level;
 

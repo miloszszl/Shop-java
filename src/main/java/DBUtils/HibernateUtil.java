@@ -1,6 +1,5 @@
 package DBUtils;
 
-import POJO.City;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
