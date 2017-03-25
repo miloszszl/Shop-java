@@ -52,17 +52,17 @@ public class User {
     private AccountType accountType;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idComment.user")
-    private List<Comment> comments;
+    private List<Comment> comments=null;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "IdRate.user")
-    private List<Rate> rates;
+    private List<Rate> rates=null;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Order> orders;
+    private List<Order> orders=null;
 
-    public User(){}
 
-    public User(String name, String lastName, String login, String password, String mail, String phone, String salt, City city, String streetName, String houseNumber, AccountType accountType, List<Comment> comments, List<Rate> rates, List<Order> orders) {
+    public User(int idUser,String name, String lastName, String login, String password, String mail, String phone, String salt, City city, String streetName, String houseNumber, AccountType accountType, List<Comment> comments, List<Rate> rates, List<Order> orders) {
+        this.idUser=idUser;
         this.name = name;
         this.lastName = lastName;
         this.login = login;

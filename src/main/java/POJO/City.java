@@ -2,7 +2,6 @@ package POJO;
 
 import javax.persistence.*;
 import java.nio.BufferOverflowException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,18 +14,24 @@ public class City {
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idMiasta",unique = true, nullable = false)
     private int idCity;
+
     @Column(name="nazwa")
     private String cityName;
+
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "city")
-    private List<User> users=new ArrayList<User>();
+    private List<User> users;
 
 
     public City(){}
-
+    public City(int idCity, String cityName)
+    {
+        this.idCity = idCity;
+        this.cityName = cityName;
+    }
     public City(int idCity, String cityName,List<User> users) {
         this.idCity = idCity;
         this.cityName = cityName;
-        //this.users=users;
+        this.users=users;
     }
 
     public int getIdCity() {

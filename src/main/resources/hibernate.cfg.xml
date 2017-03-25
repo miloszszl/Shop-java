@@ -24,10 +24,24 @@
         </property>
         <property name="show_sql">false</property>
 
+        <mapping class="POJO.AccountType"/>
+        <mapping class="POJO.Brand"/>
+        <mapping class="POJO.Category"/>
         <mapping class="POJO.City"/>
-        <mapping class="POJO.User"/>
         <mapping class="POJO.Comment"/>
-
+        <mapping class="POJO.CommentId"/>
+        <mapping class="POJO.Lock"/>
+        <mapping class="POJO.LoggingHistory"/>
+        <mapping class="POJO.Order"/>
+        <mapping class="POJO.OrderStatus"/>
+        <mapping class="POJO.Picture"/>
+        <mapping class="POJO.Product"/>
+        <mapping class="POJO.ProductOrder"/>
+        <mapping class="POJO.ProductOrderId"/>
+        <mapping class="POJO.Provider"/>
+        <mapping class="POJO.Rate"/>
+        <mapping class="POJO.RateId"/>
+        <mapping class="POJO.User"/>
 
         <!-- List of XML mapping files
         <mapping resource="Employee.hbm.xml"/>-->

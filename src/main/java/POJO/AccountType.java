@@ -1,7 +1,6 @@
 package POJO;
 
 import javax.persistence.*;
-import java.nio.Buffer;
 import java.nio.BufferOverflowException;
 import java.util.List;
 
@@ -19,10 +18,15 @@ public class AccountType {
     @Column(name = "typKonta")
     private String accountTypeName;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "accountType")
-    private List<User> users;
+    private List<User> users=null;
 
 
     public AccountType(){}
+
+    public AccountType(int idAccountType, String accountTypeName) {
+        this.idAccountType = idAccountType;
+        this.accountTypeName = accountTypeName;
+    }
 
     public AccountType(int idAccountType, String accountTypeName, List<User> users) {
         this.idAccountType = idAccountType;

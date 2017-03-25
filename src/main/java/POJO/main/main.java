@@ -15,15 +15,16 @@ import java.util.logging.Level;
 public class main {
 
     public static void main(String[] args) {
-        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+        //java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
         DBUtil dbUtil=new HibernateUtil();
 
         //create
         City c=new City();
-        c.setCityName("test123");
-
-        List<User> u=new ArrayList<User>();
-        u.add(new User());
+        c.setCityName("2244");
+        c.setUsers(null);
+       // c.setUsers(new ArrayList<User>());
+        //List<User> u=new ArrayList<User>();
+        //u.add(new User());
         //c.setUsers(u);
         dbUtil.create(c);
         System.out.println("Successfully created " + c.getCityName());

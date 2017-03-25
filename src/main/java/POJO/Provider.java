@@ -29,7 +29,8 @@ public class Provider {
 
     public Provider(){}
 
-    public Provider(String providerName, BigDecimal providerPrice, List<Order> orders) {
+    public Provider(int idProvider,String providerName, BigDecimal providerPrice, List<Order> orders) {
+        this.idProvider=idProvider;
         this.providerName = providerName;
         this.providerPrice = providerPrice;
         this.orders = orders;

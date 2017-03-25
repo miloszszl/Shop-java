@@ -25,8 +25,6 @@ public class Comment {
     @Column(name="opis")
     private String description;
 
-    private User user;
-
     public Comment(){}
 
     public Comment(CommentId idComment, Timestamp datetime, String description) {

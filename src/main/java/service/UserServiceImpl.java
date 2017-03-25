@@ -77,6 +77,7 @@ public class UserServiceImpl implements UserService {
                 "house number",
                 new AccountType(1,"Basic"),
                 null,
+                null,
                 null));
 
         users.add(new User(((int) counter.incrementAndGet()),
@@ -92,6 +93,7 @@ public class UserServiceImpl implements UserService {
                 "house number",
                 new AccountType(1,"Basic"),
                 null,
+                null,
                 null));
 
         users.add(new User(((int) counter.incrementAndGet()),
@@ -106,6 +108,7 @@ public class UserServiceImpl implements UserService {
                 "streetname",
                 "house number",
                 new AccountType(1,"Basic"),
+                null,
                 null,
                 null));
         return users;
