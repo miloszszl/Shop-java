@@ -29,7 +29,7 @@
         <mapping class="POJO.Category"/>
         <mapping class="POJO.City"/>
         <mapping class="POJO.Comment"/>
-
+        <mapping class="POJO.CommentId"/>
         <mapping class="POJO.Lock"/>
         <mapping class="POJO.LoggingHistory"/>
         <mapping class="POJO.Order"/>
@@ -37,10 +37,10 @@
         <mapping class="POJO.Picture"/>
         <mapping class="POJO.Product"/>
         <mapping class="POJO.ProductOrder"/>
-        
+        <mapping class="POJO.ProductOrderId"/>
         <mapping class="POJO.Provider"/>
         <mapping class="POJO.Rate"/>
-
+        <mapping class="POJO.RateId"/>
         <mapping class="POJO.User"/>
 
         <!-- List of XML mapping files

@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
  * Created by Miłosz on 18.03.2017.
  */
 @Embeddable
-public class RateId {
+public class RateId implements java.io.Serializable{
 
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;

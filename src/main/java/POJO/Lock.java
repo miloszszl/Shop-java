@@ -19,7 +19,7 @@ public class Lock {
     @Column(name = "login")
     private String login;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "dataBlokady")
     private Timestamp datetime;
 

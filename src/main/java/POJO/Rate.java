@@ -19,7 +19,7 @@ public class Rate {
     @EmbeddedId
     private RateId idRate;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data")
     private Timestamp datetime;
 

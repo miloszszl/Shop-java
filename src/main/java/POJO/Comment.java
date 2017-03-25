@@ -18,7 +18,7 @@ public class Comment {
     @EmbeddedId
     private CommentId idComment;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data")
     private Timestamp datetime;
 

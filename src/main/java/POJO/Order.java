@@ -13,18 +13,19 @@ import java.util.List;
 @Table(name = "Zamowienia")
 public class Order {
 
-    @Column(name="idZamowienia")
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="idZamowienia",unique = true, nullable = false)
     private int idOrder;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idUzytkownika")
     private User user;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name ="dataZamowienia")
     private Timestamp orderDatetime;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name ="dataRealizacjiZamowienia")
     private Timestamp orderRealizationDatetime;
 

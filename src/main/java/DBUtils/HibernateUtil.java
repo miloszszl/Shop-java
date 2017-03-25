@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -18,7 +19,7 @@ public class HibernateUtil implements DBUtil {
 
 
         /////////////////////first option
-        SessionFactory sessionFactory=null;
+        /*SessionFactory sessionFactory=null;
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
         try {
             sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
@@ -29,10 +30,10 @@ public class HibernateUtil implements DBUtil {
             System.out.println("milosz");
             StandardServiceRegistryBuilder.destroy( registry );
 
-        }
+        }*/
         //////////////////////////////////////////////////
         //////////////////////////second option
-        //SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         ///////////////////////////
         return sessionFactory;
     }

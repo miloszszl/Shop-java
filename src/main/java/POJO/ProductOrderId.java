@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
  * Created by Miłosz on 18.03.2017.
  */
 @Embeddable
-public class ProductOrderId {
+public class ProductOrderId implements java.io.Serializable{
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Order order;

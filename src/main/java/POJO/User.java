@@ -54,7 +54,7 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idComment.user")
     private List<Comment> comments=null;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "IdRate.user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idRate.user")
     private List<Rate> rates=null;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

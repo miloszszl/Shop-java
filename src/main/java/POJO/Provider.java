@@ -24,7 +24,7 @@ public class Provider {
     @Column(name = "cena")
     private BigDecimal providerPrice;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "brand")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "provider")
     private List<Order> orders;
 
     public Provider(){}

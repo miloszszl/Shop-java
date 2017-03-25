@@ -20,9 +20,9 @@ public class main {
 
         //create
         City c=new City();
-        c.setCityName("2244");
-        c.setUsers(null);
-       // c.setUsers(new ArrayList<User>());
+        c.setCityName("2244as");
+
+        c.setUsers(new ArrayList<User>());
         //List<User> u=new ArrayList<User>();
         //u.add(new User());
         //c.setUsers(u);
@@ -46,7 +46,7 @@ public class main {
         //customReadOne
         City ci=(City)dbUtil.customReadOne("FROM City WHERE idCity=1");
         System.out.println( "City4 (" + ci.getCityName() + ") ");
-
+/*
         //deleteById
         System.out.println("DELETE BY ID");
         dbUtil.deleteById(City.class,c.getIdCity());
@@ -76,7 +76,7 @@ public class main {
         dbUtil.customQuery("INSERT INTO City(cityName) SELECT cityName FROM City WHERE id=1");
 
 
-
+*/
 
         //update
 

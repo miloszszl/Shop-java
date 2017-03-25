@@ -7,9 +7,11 @@ import java.security.Timestamp;
 /**
  * Created by Miłosz on 18.03.2017.
  */
-@Entity
+//@Entity
+@Embeddable
 @Table(name = "HistoriaLogowan")
 public class LoggingHistory {
+
 
     @Column(name = "login",unique = true, nullable = false)
     private String login;
