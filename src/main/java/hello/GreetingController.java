@@ -1,22 +1,23 @@
 package hello;
 
-/**
- * Created by przemek on 2017-03-19.
- */
-
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+/**
+ * Created by przemek on 2017-03-25.
+ */
+
+@RestController
 public class GreetingController {
 
-    @RequestMapping("/greeting")
-    public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greeting";
-    }
+    private static final String template = "Hello, %s!";
+    private final AtomicLong counter = new AtomicLong();
 
+    @RequestMapping("/greeting")
+    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
+        return new Greeting(counter.incrementAndGet(),
+                String.format(template, name));
+    }
 }
