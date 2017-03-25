@@ -1,30 +1,68 @@
 package POJO;
 
+import javax.persistence.*;
 import java.nio.BufferOverflowException;
+import java.util.List;
 
 /**
  * Created by Miłosz on 18.03.2017.
  */
+@Entity
+@Table(name = "uzytkownicy")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "idUzytkownika",unique = true, nullable = false)
     private int idUser;
+
+    @Column(name="imie")
     private String name;
+
+    @Column(name="nazwisko")
     private String lastName;
+
+    @Column(name="login")
     private String login;
+
+    @Column(name="haslo")
     private String password;
+
+    @Column(name="mail")
     private String mail;
+
+    @Column(name="telefon")
     private String phone;
+
+    @Column(name="sol")
     private String salt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idMiasta")
     private City city;
+
+    @Column(name="nazwaUlicy")
     private String streetName;
+
+    @Column(name="numerDomu")
     private String houseNumber;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idTypuKonta")
     private AccountType accountType;
-    private Comment comment;
-    private Rate rate;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idComment.user")
+    private List<Comment> comments;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "IdRate.user")
+    private List<Rate> rates;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Order> orders;
 
     public User(){}
 
-    public User(int idUser, String name, String lastName, String login, String password, String mail, String phone, String salt, City city, String streetName, String houseNumber, AccountType accountType, Comment comment, Rate rate) {
-        this.idUser = idUser;
+    public User(String name, String lastName, String login, String password, String mail, String phone, String salt, City city, String streetName, String houseNumber, AccountType accountType, List<Comment> comments, List<Rate> rates, List<Order> orders) {
         this.name = name;
         this.lastName = lastName;
         this.login = login;
@@ -36,8 +74,9 @@ public class User {
         this.streetName = streetName;
         this.houseNumber = houseNumber;
         this.accountType = accountType;
-        this.comment = comment;
-        this.rate = rate;
+        this.comments = comments;
+        this.rates = rates;
+        this.orders = orders;
     }
 
     public int getIdUser() {
@@ -193,19 +232,27 @@ public class User {
         this.accountType = accountType;
     }
 
-    public Comment getComment() {
-        return comment;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setComment(Comment comment) {
-        this.comment = comment;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
-    public Rate getRate() {
-        return rate;
+    public List<Rate> getRates() {
+        return rates;
     }
 
-    public void setRate(Rate rate) {
-        this.rate = rate;
+    public void setRates(List<Rate> rates) {
+        this.rates = rates;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

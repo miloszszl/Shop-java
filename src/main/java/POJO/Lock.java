@@ -1,14 +1,26 @@
 package POJO;
 
+import javax.persistence.*;
 import java.nio.BufferOverflowException;
 import java.security.Timestamp;
 
 /**
  * Created by Miłosz on 18.03.2017.
  */
+
+@Entity
+@Table(name = "Blokady")
 public class Lock {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "idBlokady",unique = true, nullable = false)
     private int idLock;
+
+    @Column(name = "login")
     private String login;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "dataBlokady")
     private Timestamp datetime;
 
     public Lock(){}

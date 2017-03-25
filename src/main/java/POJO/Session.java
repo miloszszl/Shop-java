@@ -1,13 +1,25 @@
 package POJO;
 
+import javax.persistence.*;
 import java.nio.BufferOverflowException;
 import java.security.Timestamp;
 
 /**
  * Created by Miłosz on 18.03.2017.
  */
+
+//consider if we need session
+//not completed yet
+@Entity
+@Table(name = "sesja")
 public class Session {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "idSesji",unique = true, nullable = false)
     private int idSession;
+
+    @Column(name = "idUzytkownika")
     private int idUser;
     private String id;
     private String ip;

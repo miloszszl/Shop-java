@@ -1,18 +1,26 @@
 package POJO;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
+
 /**
  * Created by Miłosz on 18.03.2017.
  */
+@Embeddable
 public class CommentId {
 
+    @ManyToOne(cascade = CascadeType.ALL)
     private Product product;
-    private Order order;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
 
     public CommentId(){}
 
-    public CommentId(Product product, Order order) {
+    public CommentId(Product product, User user) {
         this.product = product;
-        this.order = order;
+        this.user = user;
     }
 
     public Product getProduct() {
@@ -23,11 +31,11 @@ public class CommentId {
         this.product = product;
     }
 
-    public Order getOrder() {
-        return order;
+    public User getUser() {
+        return user;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

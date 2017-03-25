@@ -1,15 +1,29 @@
 package POJO;
 
+import javax.persistence.*;
 import java.nio.BufferOverflowException;
 import java.security.Timestamp;
 
 /**
  * Created by Miłosz on 18.03.2017.
  */
+@Entity
+@Table(name = "Oceny")
+@AssociationOverrides({
+        @AssociationOverride(name = "idRate.user",
+                joinColumns = @JoinColumn(name = "idUzytkownika")),
+        @AssociationOverride(name = "idRate.product",
+                joinColumns = @JoinColumn(name = "idProduktu")) })
 public class Rate {
 
+    @EmbeddedId
     private RateId idRate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data")
     private Timestamp datetime;
+
+    @Column(name = "wartosc")
     private double value;
 
     public Rate(){}

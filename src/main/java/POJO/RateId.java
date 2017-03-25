@@ -1,10 +1,19 @@
 package POJO;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
+
 /**
  * Created by Miłosz on 18.03.2017.
  */
+@Embeddable
 public class RateId {
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private Product product;
 
     public RateId(){}

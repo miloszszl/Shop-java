@@ -25,10 +25,13 @@
         <property name="show_sql">false</property>
 
         <mapping class="POJO.City"/>
+        <mapping class="POJO.User"/>
+        <mapping class="POJO.Comment"/>
 
 
         <!-- List of XML mapping files
         <mapping resource="Employee.hbm.xml"/>-->
+
 
     </session-factory>
 

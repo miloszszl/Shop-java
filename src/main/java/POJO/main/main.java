@@ -3,6 +3,9 @@ package POJO.main;
 import DBUtils.DBUtil;
 import DBUtils.HibernateUtil;
 import POJO.City;
+import POJO.User;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -17,7 +20,11 @@ public class main {
 
         //create
         City c=new City();
-        c.setCityName("aaa2");
+        c.setCityName("test123");
+
+        List<User> u=new ArrayList<User>();
+        u.add(new User());
+        //c.setUsers(u);
         dbUtil.create(c);
         System.out.println("Successfully created " + c.getCityName());
 

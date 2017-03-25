@@ -1,5 +1,6 @@
 package POJO;
 
+import javax.persistence.*;
 import java.security.Timestamp;
 import java.sql.Time;
 import java.util.List;
@@ -7,16 +8,39 @@ import java.util.List;
 /**
  * Created by Miłosz on 18.03.2017.
  */
+
+@Entity
+@Table(name = "Zamowienia")
 public class Order {
 
+    @Column(name="idZamowienia")
     private int idOrder;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idUzytkownika")
     private User user;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name ="dataZamowienia")
     private Timestamp orderDatetime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name ="dataRealizacjiZamowienia")
     private Timestamp orderRealizationDatetime;
+
+    @Column(name ="uwaga")
     private String note;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idDostawcy")
     private Provider provider;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idStatusuZamowienia")
     private OrderStatus orderStatus;
-    private List productOrder;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idProductOrder.order")
+    private List<ProductOrder> productOrder;
 
     public Order(){}
 

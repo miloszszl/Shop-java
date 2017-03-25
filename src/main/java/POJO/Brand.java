@@ -1,21 +1,33 @@
 package POJO;
 
+import javax.persistence.*;
 import java.nio.BufferOverflowException;
+import java.util.List;
 
 /**
  * Created by Miłosz on 18.03.2017.
  */
+@Entity
+@Table(name="Marki")
 public class Brand {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "idMarki",unique = true, nullable = false)
     private int idBrand;
+    @Column(name = "nazwa")
     private String brandName;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "brand")
+    private List<Product> products;
 
     public Brand(){}
 
-    public Brand(int idBrand, String brandName) {
-        this.idBrand = idBrand;
+    public Brand(int idBrand,String brandName, List<Product> products) {
+        this.idBrand=idBrand;
         this.brandName = brandName;
+        this.products = products;
     }
+
 
     public int getIdBrand() {
         return idBrand;
@@ -39,5 +51,13 @@ public class Brand {
         {
             this.brandName = brandName;
         }
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

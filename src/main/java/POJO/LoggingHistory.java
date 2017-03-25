@@ -1,16 +1,25 @@
 package POJO;
 
+import javax.persistence.*;
 import java.nio.BufferOverflowException;
 import java.security.Timestamp;
 
 /**
  * Created by Miłosz on 18.03.2017.
  */
+@Entity
+@Table(name = "HistoriaLogowan")
 public class LoggingHistory {
 
+    @Column(name = "login",unique = true, nullable = false)
     private String login;
-    private Boolean loggedCorrectly;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name ="dataZCzasem")
     private Timestamp datetime;
+
+    @Column(name ="czyZalogowanoPomyslnie")
+    private Boolean loggedCorrectly;
 
     public LoggingHistory(){}
 

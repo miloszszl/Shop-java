@@ -1,5 +1,6 @@
 package POJO;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.nio.BufferOverflowException;
 import java.util.List;
@@ -7,22 +8,49 @@ import java.util.List;
 /**
  * Created by Miłosz on 18.03.2017.
  */
+@Entity
+@Table(name = "Produkt")
 public class Product {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "idProduktu",unique = true, nullable = false)
     private int idProduct;
+
+    @Column(name="nazwa")
     private String productName;
+
+    @Column(name="opis")
     private String description;
+
+    @Column(name="ilosc")
     private int amount;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idKategorii")
     private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idMarki")
     private Brand brand;
+
+    @Column(name="cena")
     private BigDecimal productPrice;
+
+    @Column(name="ocena")
     private double totalRate;
-    private List productOrder;
-    private Comment comment;
-    private Rate rate;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy ="idProductOrder.product")
+    private List<ProductOrder> productOrder;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idComment.product")
+    private List<Comment> comments;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idRate.product")
+    private List<Rate> rates;
 
     public Product(){}
 
-    public Product(int idProduct, String productName, String description, int amount, Category category, Brand brand, BigDecimal productPrice, double totalRate, List<ProductOrder> productOrder, Comment comment, Rate rate) {
+    public Product(int idProduct, String productName, String description, int amount, Category category, Brand brand, BigDecimal productPrice, double totalRate, List<ProductOrder> productOrder, List<Comment> comments, List<Rate> rates) {
         this.idProduct = idProduct;
         this.productName = productName;
         this.description = description;
@@ -32,8 +60,8 @@ public class Product {
         this.productPrice = productPrice;
         this.totalRate = totalRate;
         this.productOrder = productOrder;
-        this.comment = comment;
-        this.rate = rate;
+        this.comments = comments;
+        this.rates = rates;
     }
 
     public int getIdProduct() {
@@ -136,19 +164,19 @@ public class Product {
         this.productOrder = productOrder;
     }
 
-    public Comment getComment() {
-        return comment;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setComment(Comment comment) {
-        this.comment = comment;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
-    public Rate getRate() {
-        return rate;
+    public List<Rate> getRates() {
+        return rates;
     }
 
-    public void setRate(Rate rate) {
-        this.rate = rate;
+    public void setRates(List<Rate> rates) {
+        this.rates = rates;
     }
 }

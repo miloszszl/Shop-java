@@ -1,21 +1,33 @@
 package POJO;
 
+import javax.persistence.*;
 import java.nio.Buffer;
 import java.nio.BufferOverflowException;
+import java.util.List;
 
 /**
  * Created by Miłosz on 18.03.2017.
  */
+@Entity
+@Table(name="TypyKont")
 public class AccountType {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "idTypuKonta",unique = true, nullable = false)
     private int idAccountType;
+    @Column(name = "typKonta")
     private String accountTypeName;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "accountType")
+    private List<User> users;
+
 
     public AccountType(){}
 
-    public AccountType(int idAccountType, String accountTypeName) {
+    public AccountType(int idAccountType, String accountTypeName, List<User> users) {
         this.idAccountType = idAccountType;
         this.accountTypeName = accountTypeName;
+        this.users = users;
     }
 
     public int getIdAccountType() {
@@ -40,5 +52,13 @@ public class AccountType {
         {
             this.accountTypeName = accountTypeName;
         }
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
