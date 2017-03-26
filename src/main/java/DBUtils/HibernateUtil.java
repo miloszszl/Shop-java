@@ -15,11 +15,12 @@ import java.util.List;
  */
 public class HibernateUtil implements DBUtil {
 
+    private static SessionFactory sessionFactory=null;
     private SessionFactory getSessionFactory() {
 
+        if(sessionFactory==null) {
+            /////////////////////first option
 
-        /////////////////////first option
-        /*SessionFactory sessionFactory=null;
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
         try {
             sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
@@ -27,13 +28,14 @@ public class HibernateUtil implements DBUtil {
         catch (Exception e) {
             // The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
             // so destroy it manually.
-            System.out.println("milosz");
             StandardServiceRegistryBuilder.destroy( registry );
 
-        }*/
-        //////////////////////////////////////////////////
-        //////////////////////////second option
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        }
+            //////////////////////////////////////////////////
+            //////////////////////////second option
+            //sessionFactory = new Configuration().configure().buildSessionFactory();
+        }
+
         ///////////////////////////
         return sessionFactory;
     }
@@ -41,12 +43,15 @@ public class HibernateUtil implements DBUtil {
 
     public void create(Object obj)
     {
-        SessionFactory sessionFactory=getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.save(obj);
-        session.getTransaction().commit();
-        session.close();
+        if(obj!=null)
+        {
+            SessionFactory sessionFactory=getSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.save(obj);
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     public List readAll(Class c)
@@ -95,43 +100,62 @@ public class HibernateUtil implements DBUtil {
 
     public void deleteById(Class c,int id)
     {
-        Session session = getSessionFactory().openSession();
+        SessionFactory sessionFactory=getSessionFactory();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
+        //Object result=  session.load(c, id);
         Object result = session.get(c,id);
-        session.delete(result);
-        session.getTransaction().commit();
+        if(result!=null)
+        {
+            session.delete(result);
+            session.getTransaction().commit();
+        }
+        else {
+            session.getTransaction().rollback();
+        }
         session.close();
     }
 
     public void delete(Object obj)
     {
-        Session session = getSessionFactory().openSession();
-        session.beginTransaction();
-        session.delete(obj);
-        session.getTransaction().commit();
-        session.close();
+        if(obj!=null)
+        {
+            Session session = getSessionFactory().openSession();
+            session.beginTransaction();
+            session.delete(obj);
+            session.getTransaction().commit();
+
+            session.close();
+        }
     }
 
     public void updateOne(Object obj)
     {
-        Session session = getSessionFactory().openSession();
-        session.beginTransaction();
-        session.update(obj);
-        session.getTransaction().commit();
-        session.close();
+        if(obj!=null)
+        {
+            Session session = getSessionFactory().openSession();
+            session.beginTransaction();
+            session.update(obj);
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     public void updateMany(List li)
     {
-        Session session = getSessionFactory().openSession();
-        session.beginTransaction();
+        if(li!=null && !li.isEmpty())
+        {
+            Session session = getSessionFactory().openSession();
+            session.beginTransaction();
 
-        for ( Object o : (List<Object>) li) {
-            session.update(o);
+            for ( Object o : (List<Object>) li) {
+                session.update(o);
+            }
+
+            session.getTransaction().commit();
+            session.close();
         }
 
-        session.getTransaction().commit();
-        session.close();
     }
 
     public void customQuery(String s)

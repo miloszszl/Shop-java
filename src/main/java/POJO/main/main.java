@@ -44,15 +44,15 @@ public class main {
         }
 
         //customReadOne
-        City ci=(City)dbUtil.customReadOne("FROM City WHERE idCity=1");
+        City ci=(City)dbUtil.customReadOne("FROM City WHERE idCity=3");
         System.out.println( "City4 (" + ci.getCityName() + ") ");
-/*
+
         //deleteById
         System.out.println("DELETE BY ID");
-        dbUtil.deleteById(City.class,c.getIdCity());
+        dbUtil.deleteById(City.class,1);
 
         //delete
-        System.out.println("DELETE");
+       System.out.println("DELETE");
         City c2=new City();
         c2.setCityName("bbb2");
         dbUtil.create(c2);  //first create record
@@ -60,7 +60,7 @@ public class main {
 
         //updateOne
         System.out.println("UPDATE ONE");
-        City c3=(City)dbUtil.readById(City.class,1);//select from database
+        City c3=(City)dbUtil.readById(City.class,3);//select from database
         c3.setCityName("a1c2v3");       //change object
         dbUtil.updateOne(c3);           //update it
 
@@ -74,12 +74,6 @@ public class main {
         //customQuery
         System.out.println("CUSTOM QUERY");
         dbUtil.customQuery("INSERT INTO City(cityName) SELECT cityName FROM City WHERE id=1");
-
-
-*/
-
-        //update
-
 
     }
 
