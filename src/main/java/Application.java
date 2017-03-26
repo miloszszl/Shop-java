@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 
 @SpringBootApplication
-@ComponentScan({"service", "hello"}) // If class in your package doesn't work add such package here.
+@ComponentScan({"service", "controller"}) // If class in your package doesn't work add such package here.
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
