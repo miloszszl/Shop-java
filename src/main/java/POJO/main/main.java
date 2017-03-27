@@ -12,6 +12,7 @@ import java.util.logging.Level;
 /**
  * Created by Miłosz on 18.03.2017.
  */
+
 public class main {
 
     public static void main(String[] args) {
@@ -19,7 +20,7 @@ public class main {
         DBUtil dbUtil=new HibernateUtil();
 
         //create
-        City c=new City();
+       /* City c=new City();
         c.setCityName("2244as");
 
         c.setUsers(new ArrayList<User>());
@@ -28,14 +29,18 @@ public class main {
         //c.setUsers(u);
         dbUtil.create(c);
         System.out.println("Successfully created " + c.getCityName());
-
+*/
         //readAll
         for ( City city : (List<City>) dbUtil.readAll(City.class)) {
             System.out.println( "City1 (" + city.getCityName() + ") ");
         }
+        for ( User u : (List<User>) dbUtil.readAll(User.class)) {
+            System.out.println( "U (" + u.getName() + ") ");
+        }
+
 
         //readById
-        System.out.println( "City2 (" + ((City)dbUtil.readById(City.class,c.getIdCity())).getCityName()+ ") ");
+     /*   System.out.println( "City2 (" + ((City)dbUtil.readById(City.class,c.getIdCity())).getCityName()+ ") ");
 
         //customReadMany
         List<City> cList=dbUtil.customReadMany("FROM City WHERE cityName LIKE '%a%'");
@@ -74,7 +79,7 @@ public class main {
         //customQuery
         System.out.println("CUSTOM QUERY");
         dbUtil.customQuery("INSERT INTO City(cityName) SELECT cityName FROM City WHERE id=1");
-
+*/
     }
 
 }

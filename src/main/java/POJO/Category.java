@@ -22,7 +22,6 @@ public class Category {
 
     public Category(){}
 
-
     public Category(int idCategory,String categoryName, List<Product> products) {
         this.idCategory=idCategory;
         this.categoryName = categoryName;
