@@ -1,5 +1,9 @@
 package POJO;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.nio.BufferOverflowException;
 import java.util.List;
@@ -11,14 +15,15 @@ import java.util.List;
 @Table(name = "Miasta")
 public class City {
 
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idMiasta",unique = true, nullable = false)
     private int idCity;
 
     @Column(name="nazwa")
     private String cityName;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "city")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "city")
     private List<User> users;
 
 
@@ -55,9 +60,9 @@ public class City {
         {
             this.cityName = cityName;
         }
-
     }
 
+    @JsonIgnore
     public List<User> getUsers() {
         return users;
     }
