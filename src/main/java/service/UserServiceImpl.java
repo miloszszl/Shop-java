@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import POJO.*;
+import DBUtils.DBUtil;
+import DBUtils.HibernateUtil;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
+
+    private DBUtil dbUtil = new HibernateUtil();
 
     private static final AtomicLong counter = new AtomicLong();
 
@@ -23,7 +27,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> findAllUsers() {
-        return users;
+
+        return dbUtil.readAll(User.class);
     }
 
     public User findById(long id) {
@@ -64,7 +69,7 @@ public class UserServiceImpl implements UserService {
 
     private static List<User> populateDummyUsers() {
         List<User> users = new ArrayList<>();
-        users.add(new User(((int) counter.incrementAndGet()),
+         users.add(new User(((int) counter.incrementAndGet()),
                 "Adam",
                 "Jensen",
                 "adamjensen",

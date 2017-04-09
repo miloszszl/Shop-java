@@ -1,5 +1,7 @@
 package POJO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.nio.BufferOverflowException;
 import java.util.List;
@@ -187,6 +189,7 @@ public class User {
         }
     }
 
+    @JsonIgnore
     public City getCity() {
         return city;
     }
@@ -225,6 +228,7 @@ public class User {
         }
     }
 
+    @JsonIgnore
     public AccountType getAccountType() {
         return accountType;
     }
@@ -233,6 +237,7 @@ public class User {
         this.accountType = accountType;
     }
 
+    @JsonIgnore
     public List<Comment> getComments() {
         return comments;
     }
@@ -241,6 +246,7 @@ public class User {
         this.comments = comments;
     }
 
+    @JsonIgnore
     public List<Rate> getRates() {
         return rates;
     }
@@ -249,6 +255,7 @@ public class User {
         this.rates = rates;
     }
 
+    @JsonIgnore
     public List<Order> getOrders() {
         return orders;
     }
