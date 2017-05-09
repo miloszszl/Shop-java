@@ -15,11 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @ComponentScan({"service", "controller", "security"}) // If class in your package doesn't work add such package here.
 public class Application {
 
-    @RequestMapping("/")
-    String hello() {
-        return "hello world";
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
