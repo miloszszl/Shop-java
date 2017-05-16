@@ -19,7 +19,7 @@ public class User {
     private int idUser;
 
     @Column(name="imie")
-    private String name;
+    private String firstName;
 
     @Column(name="nazwisko")
     private String lastName;
@@ -31,7 +31,7 @@ public class User {
     private String password;
 
     @Column(name="mail")
-    private String mail;
+    private String email;
 
     @Column(name="telefon")
     private String phone;
@@ -66,11 +66,11 @@ public class User {
 
     public User(int idUser,String name, String lastName, String login, String password, String mail, String phone, String salt, City city, String streetName, String houseNumber, AccountType accountType, List<Comment> comments, List<Rate> rates, List<Order> orders) {
         this.idUser=idUser;
-        this.name = name;
+        this.firstName = name;
         this.lastName = lastName;
         this.login = login;
         this.password = password;
-        this.mail = mail;
+        this.email = mail;
         this.phone = phone;
         this.salt = salt;
         this.city = city;
@@ -90,8 +90,8 @@ public class User {
         this.idUser = idUser;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
     public void setName(String name) throws BufferOverflowException{
@@ -101,7 +101,7 @@ public class User {
         }
         else
         {
-            this.name = name;
+            this.firstName = name;
         }
     }
 
@@ -144,18 +144,15 @@ public class User {
         this.password = password;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) throws BufferOverflowException{
-        if(mail.length()>50)
-        {
+    public void setEmail(String mail) throws BufferOverflowException{
+        if (mail.length() > 50) {
             throw new BufferOverflowException();
-        }
-        else
-        {
-            this.mail = mail;
+        } else {
+            this.email = mail;
         }
     }
 

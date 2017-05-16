@@ -49,10 +49,10 @@ public class UserController {
 
     @RequestMapping(value = "/api/users", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating User " + user.getName());
+        System.out.println("Creating User " + user.getFirstName());
 
         if (userService.isUserExist(user)) {
-            System.out.println("A User with name " + user.getName() + " already exist");
+            System.out.println("A User with name " + user.getFirstName() + " already exist");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
@@ -74,7 +74,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        currentUser.setName(user.getName());
+        currentUser.setName(user.getFirstName());
         //currentUser.setAge(user.getAge());
         //currentUser.setSalary(user.getSalary());
 

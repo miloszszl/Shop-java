@@ -5,9 +5,7 @@ import DBUtils.HibernateUtil;
 import POJO.City;
 import POJO.User;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * Created by Miłosz on 18.03.2017.
@@ -35,7 +33,7 @@ public class main {
             System.out.println( "City1 (" + city.getCityName() + ") ");
         }
         for ( User u : (List<User>) dbUtil.readAll(User.class)) {
-            System.out.println( "U (" + u.getName() + ") ");
+            System.out.println( "U (" + u.getFirstName() + ") ");
         }
 
 

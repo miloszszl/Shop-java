@@ -1,5 +1,6 @@
 package service;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
     public User findByName(String name) {
         for (User user : users) {
-            if (user.getName().equalsIgnoreCase(name)) {
+            if (user.getFirstName().equalsIgnoreCase(name)) {
                 return user;
             }
         }
@@ -51,7 +52,10 @@ public class UserServiceImpl implements UserService {
 
     public void saveUser(User user) {
         user.setIdUser(((int) counter.incrementAndGet())); // counter.incrementAndGet() returns long type so our IdUser
-        users.add(user);                                   // should be long? For now temp fix is to cast to int.
+        //users.add(user);                                   // should be long? For now temp fix is to cast to int.
+
+        System.out.println("dbUtil - tworzenie usera");
+        dbUtil.create(user);
     }
 
     public void updateUser(User user) {
@@ -64,7 +68,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean isUserExist(User user) {
-        return findByName(user.getName()) != null;
+        return findByName(user.getFirstName()) != null;
     }
 
     private static List<User> populateDummyUsers() {
