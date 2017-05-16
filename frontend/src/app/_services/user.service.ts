@@ -8,7 +8,7 @@ export class UserService {
     constructor(private http: Http) { }
 
     getAll() {
-        return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/users/', this.jwt()).map((response: Response) => response.json());
     }
 
     getById(id: number) {
@@ -16,7 +16,7 @@ export class UserService {
     }
 
     create(user: User) {
-        return this.http.post('/api/users', user, this.jwt()).map((response: Response) => response.json());
+        return this.http.post('/api/users/', user, this.jwt())/*.map((response: Response) => response.json())*/; // http://stackoverflow.com/a/35734684
     }
 
     update(user: User) {
