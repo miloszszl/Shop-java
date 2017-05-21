@@ -49,15 +49,19 @@ public class UserController {
 
     @RequestMapping(value = "/api/users", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating User " + user.getFirstName());
 
-        if (userService.isUserExist(user)) {
-            System.out.println("A User with name " + user.getFirstName() + " already exist");
+        System.out.println("Creating User --- " + user.getLogin());
+        if (userService.isUserExist(user)) {    // TODO Async field checking
+            System.out.println("A User with name --- " + user.getLogin() + " --- already exist");
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        if (userService.isEmailTaken(user.getEmail())) {
+            System.out.println("A User with email --- " + user.getEmail() + " --- already exist");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
         userService.saveUser(user);
-
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getIdUser()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);

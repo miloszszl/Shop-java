@@ -50,11 +50,23 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public User findByLogin(String login) {
+        List<User> users = dbUtil.readAll(User.class);
+
+        for (User user : users) {
+            if (user.getLogin().equals(login)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     public void saveUser(User user) {
         user.setIdUser(((int) counter.incrementAndGet())); // counter.incrementAndGet() returns long type so our IdUser
         //users.add(user);                                   // should be long? For now temp fix is to cast to int.
 
-        System.out.println("dbUtil - tworzenie usera");
+        System.out.println("Tworzenie usera w bazie: " + user.getLogin() + " " + user.getEmail());
         dbUtil.create(user);
     }
 
@@ -68,7 +80,19 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean isUserExist(User user) {
-        return findByName(user.getFirstName()) != null;
+        return findByLogin(user.getLogin()) != null;
+    }
+
+    @Override
+    public boolean isEmailTaken(String email) {
+        List<User> users = dbUtil.readAll(User.class);
+
+        for (User user : users) {
+            if (user.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static List<User> populateDummyUsers() {
