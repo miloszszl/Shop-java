@@ -25,6 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/users/").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/users/").hasRole("ADMIN")
                 .antMatchers("/").permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
@@ -37,7 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new JWTAuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class);
     }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

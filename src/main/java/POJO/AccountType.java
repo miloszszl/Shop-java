@@ -1,5 +1,7 @@
 package POJO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.nio.BufferOverflowException;
 import java.util.List;
@@ -17,7 +19,7 @@ public class AccountType {
     private int idAccountType;
     @Column(name = "typKonta")
     private String accountTypeName;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "accountType")
+    @OneToMany(fetch = FetchType.EAGER ,mappedBy = "accountType")
     private List<User> users=null;
 
 
@@ -58,6 +60,7 @@ public class AccountType {
         }
     }
 
+    @JsonIgnore
     public List<User> getUsers() {
         return users;
     }

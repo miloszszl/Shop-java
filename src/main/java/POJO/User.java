@@ -48,8 +48,8 @@ public class User {
 
     @Column(name="numerDomu")
     private String houseNumber;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idTypuKonta")
     private AccountType accountType;
 
@@ -225,7 +225,6 @@ public class User {
         }
     }
 
-    @JsonIgnore
     public AccountType getAccountType() {
         return accountType;
     }
