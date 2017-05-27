@@ -30,6 +30,9 @@ public class Product {
     @Column(name="ilosc")
     private int amount;
 
+    @Column(name="zdjecie")
+    private String photo;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idKategorii")
     private Category category;
@@ -92,6 +95,10 @@ public class Product {
             this.productName = productName;
         }
     }
+
+    public String getPhoto() { return photo; }
+
+    public void setPhoto(String photo) { this.photo = photo; }
 
     public String getDescription() {
         return description;

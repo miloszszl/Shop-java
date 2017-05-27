@@ -1,0 +1,11 @@
+
+<div class="col-md-6 col-md-offset-3">
+    <h1>ELO :D</h1>
+    <h3>Photo loading test:</h3>
+    <ul>
+        <li *ngFor="let product of products">
+            <img src="/api/image/{{product.photo}}">
+        </li>
+    </ul>
+    <p><a [routerLink]="['/']">Back</a></p>
+</div>
