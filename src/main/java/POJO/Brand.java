@@ -1,5 +1,7 @@
 package POJO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.nio.BufferOverflowException;
 import java.util.List;
@@ -28,7 +30,7 @@ public class Brand {
         this.products = products;
     }
 
-
+    @JsonIgnore
     public int getIdBrand() {
         return idBrand;
     }
@@ -53,6 +55,7 @@ public class Brand {
         }
     }
 
+    @JsonIgnore
     public List<Product> getProducts() {
         return products;
     }

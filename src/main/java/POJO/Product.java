@@ -1,15 +1,20 @@
 package POJO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.nio.BufferOverflowException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Miłosz on 18.03.2017.
  */
 @Entity
-@Table(name = "Produkt")
+@Table(name = "Produkty")
 public class Product {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -25,11 +30,11 @@ public class Product {
     @Column(name="ilosc")
     private int amount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idKategorii")
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idMarki")
     private Brand brand;
 
@@ -39,18 +44,19 @@ public class Product {
     @Column(name="ocena")
     private double totalRate;
 
+    //@LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(fetch = FetchType.LAZY, mappedBy ="idProductOrder.product")
-    private List<ProductOrder> productOrder;
+    private Set<ProductOrder> productOrder;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idComment.product")
-    private List<Comment> comments;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "idComment.product")
+    private Set<Comment> comments;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idRate.product")
-    private List<Rate> rates;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "idRate.product")
+    private Set<Rate> rates;
 
     public Product(){}
 
-    public Product(int idProduct, String productName, String description, int amount, Category category, Brand brand, BigDecimal productPrice, double totalRate, List<ProductOrder> productOrder, List<Comment> comments, List<Rate> rates) {
+    public Product(int idProduct, String productName, String description, int amount, Category category, Brand brand, BigDecimal productPrice, double totalRate, Set<ProductOrder> productOrder, Set<Comment> comments, Set<Rate> rates) {
         this.idProduct = idProduct;
         this.productName = productName;
         this.description = description;
@@ -141,6 +147,7 @@ public class Product {
         }
     }
 
+    @JsonIgnore
     public double getTotalRate() {
         return totalRate;
     }
@@ -156,27 +163,30 @@ public class Product {
         }
     }
 
-    public List getProductOrder() {
+    @JsonIgnore
+    public Set getProductOrder() {
         return productOrder;
     }
 
-    public void setProductOrder(List productOrder) {
+    public void setProductOrder(Set productOrder) {
         this.productOrder = productOrder;
     }
 
-    public List<Comment> getComments() {
+    @JsonIgnore
+    public Set<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
 
-    public List<Rate> getRates() {
+    @JsonIgnore
+    public Set<Rate> getRates() {
         return rates;
     }
 
-    public void setRates(List<Rate> rates) {
+    public void setRates(Set<Rate> rates) {
         this.rates = rates;
     }
 }
