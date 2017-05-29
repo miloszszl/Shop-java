@@ -1,8 +1,8 @@
 package POJO;
 
 import javax.persistence.*;
-import java.security.Timestamp;
-import java.sql.Time;
+import java.sql.Timestamp;
+
 import java.util.List;
 
 /**

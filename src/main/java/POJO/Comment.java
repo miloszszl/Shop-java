@@ -1,7 +1,9 @@
 package POJO;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 /**
  * Created by Miłosz on 18.03.2017.
@@ -23,7 +25,19 @@ public class Comment {
     private Timestamp datetime;
 
     @Column(name="opis")
+    @Type(type="text")
     private String description;
+
+    @PrePersist
+    protected void onCreate() {
+        datetime = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        datetime = new Timestamp(System.currentTimeMillis());
+    }
+
 
     public Comment(){}
 

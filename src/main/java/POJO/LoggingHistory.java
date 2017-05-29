@@ -2,7 +2,7 @@ package POJO;
 
 import javax.persistence.*;
 import java.nio.BufferOverflowException;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 /**
  * Created by Miłosz on 18.03.2017.
@@ -16,7 +16,7 @@ public class LoggingHistory {
     @Column(name = "login",unique = true, nullable = false)
     private String login;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name ="dataZCzasem")
     private Timestamp datetime;
 

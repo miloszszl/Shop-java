@@ -18,48 +18,48 @@ public class User {
     @Column(name = "idUzytkownika",unique = true, nullable = false)
     private int idUser;
 
-    @Column(name="imie")
+    @Column(name="imie",length = 30)
     private String firstName;
 
-    @Column(name="nazwisko")
+    @Column(name="nazwisko",length = 30)
     private String lastName;
 
-    @Column(name="login")
+    @Column(name="login",length = 20)
     private String login;
 
-    @Column(name="haslo")
+    @Column(name="haslo",length = 65)
     private String password;
 
-    @Column(name="mail")
+    @Column(name="mail",length=50)
     private String email;
 
-    @Column(name="telefon")
+    @Column(name="telefon",length = 12)
     private String phone;
 
-    @Column(name="sol")
+    @Column(name="sol",length = 10)
     private String salt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idMiasta")
     private City city;
 
-    @Column(name="nazwaUlicy")
+    @Column(name="nazwaUlicy",length = 30)
     private String streetName;
 
-    @Column(name="numerDomu")
+    @Column(name="numerDomu",length = 10)
     private String houseNumber;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idTypuKonta")
     private AccountType accountType;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idComment.user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idComment.user",cascade=CascadeType.ALL)
     private List<Comment> comments=null;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idRate.user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idRate.user",cascade=CascadeType.ALL)
     private List<Rate> rates=null;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade=CascadeType.ALL)
     private List<Order> orders=null;
 
     public User(){}

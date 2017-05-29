@@ -2,7 +2,7 @@ package POJO;
 
 import javax.persistence.*;
 import java.nio.BufferOverflowException;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 /**
  * Created by Miłosz on 18.03.2017.
