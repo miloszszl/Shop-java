@@ -1,30 +1,27 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { User } from '../_models/index';
-import { UserService } from '../_services/index';
+import { Product } from '../_models/index';
+import { ProductService } from '../_services/index';
 
 @Component({
     moduleId: module.id.toString(),
     templateUrl: 'home.component.html'
 })
 
-export class HomeComponent implements OnInit {
-    currentUser: User;
-    users: User[] = [];
+export class HomeComponent{
+    //currentUser: User;
+    products: Product[] = [];
 
-    constructor(private userService: UserService) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    constructor(private productService: ProductService) {
+        //this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     ngOnInit() {
-        this.loadAllUsers();
+        this.loadAllProducts();
     }
 
-    deleteUser(id: number) {
-        this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
-    }
-
-    private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.users = users; });
+    private loadAllProducts() {
+        this.productService.getAll().subscribe(products => { this.products = products; });
     }
 }
