@@ -1,7 +1,7 @@
-﻿import { NgModule }      from '@angular/core';
+﻿import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 
 // used to create fake backend
 //import { fakeBackendProvider } from './_helpers/index';
@@ -19,11 +19,23 @@ import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { FrontComponent } from './front/index';
 
+//Merged
+import { ShowcaseComponent } from './showcase/showcase.component';
+
+import { DataService } from './data.service';
+import { CartService } from './cart.service';
+
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { FiltersComponent } from './filters/filters.component';
+import { CartComponent } from './cart/cart.component';
+
+
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
+        JsonpModule,
         routing
     ],
     declarations: [
@@ -32,8 +44,14 @@ import { FrontComponent } from './front/index';
         HomeComponent,
         LoginComponent,
         RegisterComponent,
-        FrontComponent
+        CartComponent,
+        FrontComponent,
+        //Merged
+        ShowcaseComponent,
+        SearchBarComponent,
+        FiltersComponent
     ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, ],
     providers: [
         AuthGuard,
         AlertService,
@@ -44,7 +62,10 @@ import { FrontComponent } from './front/index';
         // providers used to create fake backend
         //fakeBackendProvider,
         MockBackend,
-        BaseRequestOptions
+        BaseRequestOptions,
+        //Merged
+        DataService,
+        CartService,
     ],
     bootstrap: [AppComponent]
 })

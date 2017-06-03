@@ -1,11 +1,13 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewEncapsulation } from '@angular/core';
 
-import '../assets/app.css';
+require('!!style-loader!css-loader!sass-loader!../styles.scss');  
 
 @Component({
     moduleId: module.id.toString(),
     selector: 'app',
-    templateUrl: 'app.component.html'
+    templateUrl: 'app.component.html',
+    //styles: [ require('./app.component.scss') ]
+    //encapsulation: ViewEncapsulation.None
 })
 
 export class AppComponent { }

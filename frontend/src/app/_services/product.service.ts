@@ -11,6 +11,10 @@ export class ProductService {
         return this.http.get('/api/products/', this.jwt()).map((response: Response) => response.json());
     }
 
+    getCategories() {
+        return this.http.get('/api/products/categories/', this.jwt()).map((response: Response) => response.json());
+    }
+
     private jwt() {
         // create authorization header with jwt token
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));

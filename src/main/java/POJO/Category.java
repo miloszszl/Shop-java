@@ -16,41 +16,40 @@ public class Category {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "idKategorii",unique = true, nullable = false)
-    private int idCategory;
+    private int id;
     @Column(name = "nazwa")
-    private String categoryName;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "category")
+    private String name;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "categories")
     private List<Product> products;
 
     public Category(){}
 
-    public Category(int idCategory,String categoryName, List<Product> products) {
-        this.idCategory=idCategory;
-        this.categoryName = categoryName;
+    public Category(int id, String name, List<Product> products) {
+        this.id = id;
+        this.name = name;
         this.products = products;
     }
 
-    @JsonIgnore
-    public int getIdCategory() {
-        return idCategory;
+    public int getId() {
+        return id;
     }
 
-    public void setIdCategory(int idCategory) {
-        this.idCategory = idCategory;
+    public void setId(int idCategory) {
+        this.id = idCategory;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String categoryName) throws BufferOverflowException{
+    public void setName(String categoryName) throws BufferOverflowException{
         if(categoryName.length()>50)
         {
             throw new BufferOverflowException();
         }
         else
         {
-            this.categoryName = categoryName;
+            this.name = categoryName;
         }
     }
 

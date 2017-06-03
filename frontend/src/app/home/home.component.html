@@ -1,11 +1,38 @@
-﻿<div class="col-md-6 col-md-offset-3">
-    <h1>ELO :D</h1>
-    <h3>Photo loading test:</h3>
-    <ul>
-        <li *ngFor="let product of products">
-            <img src="/api/image/{{product.photo}}">
-        </li>
-    </ul>
+﻿<div class="main-container">
+  <p><a [routerLink]="['/']">Back</a></p>
     <p><a [routerLink]="['/login']">Logout</a></p>
-    <p><a [routerLink]="['/storeFront']">Test me</a></p>
+    <p><a [routerLink]="['/storeFront']">TEST</a></p>
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        <div class="filters-wrapper">
+          <url-form (onURLChange)='onURLChange($event)'></url-form>
+          <cart></cart>
+          <filters #filtersComponent [categories]='categories' [customFilters]='customFilters' [priceFilters]='priceFilters' (onFilterChange)='onFilterChange($event)'></filters>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="row">
+          <div class="col-8">
+            <div class="sort-filters-wrapper">
+              <sort-filters [filters]='sortFilters' (onSortChange)='sortProducts($event)'></sort-filters>
+            </div>
+          </div>
+          <div class="col-4">
+            <search-bar  #searchComponent (onSearchChange)='onSearchChange($event)'></search-bar>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <showcase [products]='products'></showcase>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

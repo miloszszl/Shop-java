@@ -1,13 +1,10 @@
 package POJO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.nio.BufferOverflowException;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,10 +16,10 @@ public class Product {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "idProduktu",unique = true, nullable = false)
-    private int idProduct;
+    private int id;
 
     @Column(name="nazwa")
-    private String productName;
+    private String name;
 
     @Column(name="opis")
     private String description;
@@ -35,14 +32,14 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idKategorii")
-    private Category category;
+    private Category categories; // Change to plural form here once, or change in everywhere in the FE.
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idMarki")
     private Brand brand;
 
     @Column(name="cena")
-    private BigDecimal productPrice;
+    private BigDecimal price;
 
     @Column(name="ocena")
     private double totalRate;
@@ -59,40 +56,40 @@ public class Product {
 
     public Product(){}
 
-    public Product(int idProduct, String productName, String description, int amount, Category category, Brand brand, BigDecimal productPrice, double totalRate, Set<ProductOrder> productOrder, Set<Comment> comments, Set<Rate> rates) {
-        this.idProduct = idProduct;
-        this.productName = productName;
+    public Product(int id, String name, String description, int amount, Category categories, Brand brand, BigDecimal price, double totalRate, Set<ProductOrder> productOrder, Set<Comment> comments, Set<Rate> rates) {
+        this.id = id;
+        this.name = name;
         this.description = description;
         this.amount = amount;
-        this.category = category;
+        this.categories = categories;
         this.brand = brand;
-        this.productPrice = productPrice;
+        this.price = price;
         this.totalRate = totalRate;
         this.productOrder = productOrder;
         this.comments = comments;
         this.rates = rates;
     }
 
-    public int getIdProduct() {
-        return idProduct;
+    public int getId() {
+        return id;
     }
 
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
+    public void setId(int idProduct) {
+        this.id = idProduct;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) throws BufferOverflowException{
+    public void setName(String productName) throws BufferOverflowException{
         if(productName.length()>50)
         {
             throw new BufferOverflowException();
         }
         else
         {
-            this.productName = productName;
+            this.name = productName;
         }
     }
 
@@ -123,12 +120,12 @@ public class Product {
         }
     }
 
-    public Category getCategory() {
-        return category;
+    public Category getCategories() {
+        return categories;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategories(Category category) {
+        this.categories = category;
     }
 
     public Brand getBrand() {
@@ -139,18 +136,18 @@ public class Product {
         this.brand = brand;
     }
 
-    public BigDecimal getProductPrice() {
-        return productPrice;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setProductPrice(BigDecimal productPrice) throws BufferOverflowException{
+    public void setPrice(BigDecimal productPrice) throws BufferOverflowException{
         if(productPrice.compareTo(new BigDecimal(9999.99))==1 || productPrice.compareTo(BigDecimal.ZERO)==-1)
         {
             throw new BufferOverflowException();
         }
         else
         {
-            this.productPrice=productPrice;
+            this.price =productPrice;
         }
     }
 

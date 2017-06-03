@@ -5,7 +5,8 @@ import { AlertService, UserService } from '../_services/index';
 
 @Component({
     moduleId: module.id.toString(),
-    templateUrl: 'register.component.html'
+    templateUrl: 'register.component.html',
+    styles: [ require('../shared/bootstrap.css') ],
 })
 
 export class RegisterComponent {

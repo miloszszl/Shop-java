@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import POJO.Category;
 import POJO.Product;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import service.CategoryService;
 import service.ProductService;
 import service.UserService;
 import POJO.User;
@@ -25,10 +27,12 @@ import javax.imageio.ImageIO;
 public class ProductController {
 
     private ProductService productService; // Service which will do all data retrieval/manipulation work.
+    private CategoryService categoryService;
 
     @Autowired
-    public ProductController(ProductService productService) { // Constructor injection, field injection is not recommended.
+    public ProductController(ProductService productService, CategoryService categoryService) { // Constructor injection, field injection is not recommended.
         this.productService = productService;
+        this.categoryService = categoryService;
     }
 
     @RequestMapping(value = "/api/products/", method = RequestMethod.GET)
@@ -61,4 +65,15 @@ public class ProductController {
             throw new RuntimeException(e);
         }
     }
+
+    @RequestMapping(value = "/api/products/categories/", method = RequestMethod.GET)
+    public ResponseEntity<List<Category>> listAllCategories() {
+
+        List<Category> allCategories = categoryService.findAllCategories();
+        if(allCategories.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(allCategories, HttpStatus.OK);
+    }
+
 }
