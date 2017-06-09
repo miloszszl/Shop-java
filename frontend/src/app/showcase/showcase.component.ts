@@ -21,6 +21,7 @@ export class ShowcaseComponent implements OnInit {
   }
   ngOnInit() {
     this.detailViewActive = false
+    console.debug("working")
   }
 
   onProductClick(){

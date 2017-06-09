@@ -11,6 +11,7 @@ import { UserService } from '../_services/index';
 export class FrontComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
+    products: any;
 
     constructor(private userService: UserService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -18,6 +19,8 @@ export class FrontComponent implements OnInit {
 
     ngOnInit() {
         this.loadAllUsers();
+        this.products = JSON.parse(localStorage.getItem("cartList"));
+        console.debug(this.products);
     }
 
     deleteUser(id: number) {

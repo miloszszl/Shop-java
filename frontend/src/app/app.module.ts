@@ -18,6 +18,9 @@ import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { FrontComponent } from './front/index';
+import { PaymentComponent } from './payment/index';
+import { NavbarComponent } from './navbar/index';
+import { ProductManagerComponent } from './product-manager/index'
 
 //Merged
 import { ShowcaseComponent } from './showcase/showcase.component';
@@ -43,9 +46,12 @@ import { CartComponent } from './cart/cart.component';
         AlertComponent,
         HomeComponent,
         LoginComponent,
+        NavbarComponent,
         RegisterComponent,
         CartComponent,
         FrontComponent,
+        PaymentComponent,
+        ProductManagerComponent,
         //Merged
         ShowcaseComponent,
         SearchBarComponent,

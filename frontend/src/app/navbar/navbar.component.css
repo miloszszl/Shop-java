@@ -1,0 +1,17 @@
+.logo {
+    height: 60px;
+}
+
+.navbar-brand {
+  padding: 0px;
+   height: 60px;
+}
+
+.navbar-brand > img {
+  padding: 5px;
+   height: 60px !important;
+}
+
+.absolute-center {
+  padding-top: 4px;
+}

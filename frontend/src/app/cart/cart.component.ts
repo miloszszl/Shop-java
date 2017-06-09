@@ -66,4 +66,8 @@ export class CartComponent implements OnInit {
     this.expanded = !this.expanded
   }
 
+  onPayClick(){
+    localStorage.setItem("cartList", JSON.stringify(this.products));
+  }
+
 }

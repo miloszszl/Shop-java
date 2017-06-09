@@ -34,7 +34,8 @@ export class CartService {
       product.parsedPrice = parsedPrice
       this.products.push({
         product:product,
-        quantity:1
+        quantity:1,
+        
       })
     }
 
@@ -52,10 +53,13 @@ export class CartService {
     this.productAddedSource.next({ products: this.products, cartTotal: this.cartTotal })
   }
 
-
   flushCart(){
     this.products = []
     this.cartTotal = 0
     this.productAddedSource.next({ products: this.products, cartTotal: this.cartTotal })
+  }
+
+  getProducts(){
+    return this.products;
   }
 }
