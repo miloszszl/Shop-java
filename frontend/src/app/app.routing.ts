@@ -16,7 +16,7 @@ const appRoutes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'storeFront', component: FrontComponent },
     { path: 'payment', component: PaymentComponent },
-    { path: 'products', component: ProductManagerComponent, canActivate: [AuthGuard] },
+    { path: 'products', component: ProductManagerComponent, canActivate: [AuthGuard], data: { role: "ROLE_ADMIN" } },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

@@ -6,7 +6,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img class="logo" src="../../assets/logo.png" alt="FastBanana.pl">
+            <a class="navbar-brand" [routerLink]="['/']"><img class="logo" src="../../assets/logo.png" alt="FastBanana.pl">
         </a>
         </div>
         <center>
@@ -28,12 +28,13 @@
                 </form>
             </div>
             <div *ngIf="loggedin" class=" navbar-collapse collapse" id="navbar-main">
-                <div class="absolute-center navbar-form navbar-right">
-                    <div class="form-group">
-                        <label>Hello {{user.username}}</label>
-                        <a (click)="logout()" class="btn btn-link">Logout</a>
-                    </div>
-                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li *ngIf="user.role == 'ROLE_ADMIN'"><a class="btn btn-link">Current orders</a></li>
+                    <li  *ngIf="user.role == 'ROLE_ADMIN'" [routerLink]="['/products']"><a class="btn btn-link">Manage products</a></li>
+                    <li><a class="btn btn-link">Order history</a></li>
+                    <li><a class="btn btn-link">{{user.username}}'s account</a></li>
+                    <li><a (click)="logout()" class="btn btn-link">Logout</a></li>
+                </ul>
             </div>
         </center>
     </div>

@@ -21,7 +21,6 @@ export class AuthenticationService {
                 user.token = token;
                 user.username = decodedToken.sub;
                 user.role = decodedToken.role;
-                console.debug("WAWAWAWWAW");
                 console.debug(user);
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 //console.debug(localStorage.getItem('currentUser'));

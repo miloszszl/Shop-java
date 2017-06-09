@@ -9,14 +9,25 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router, private alertService: AlertService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (localStorage.getItem('currentUser')) {
-            // logged in so return true
-            return true;
+        var user = JSON.parse(localStorage.getItem('currentUser'))
+        
+        if (user){
+            if(route.data["role"]){
+                if (route.data["role"] === user.role)
+                    return true;
+                else{
+                    this.router.navigate(['/'], { queryParams: { returnUrl: state.url }});
+                    this.alertService.error("Not enough rigths!", true);
+                    return false;
+                }
+            }
+            else {
+                return true;
+            }
         }
 
-        // not logged in so redirect to login page with the return url
         this.router.navigate(['/'], { queryParams: { returnUrl: state.url }});
-        this.alertService.error("Halt! You need to be admin to go there", true);
+        this.alertService.error("Halt! You need to be logged in to go there", true);
         return false;
     }
 }

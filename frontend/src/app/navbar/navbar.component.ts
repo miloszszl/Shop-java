@@ -28,7 +28,11 @@ export class NavbarComponent{
 
     ngOnInit() {
         // reset login status
-        this.authenticationService.logout();
+        //this.authenticationService.logout();
+        if(this.user = JSON.parse(localStorage.getItem('currentUser'))){
+            console.debug("juz bylem zalogowany")
+            this.loggedin = true;
+        }
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -37,10 +41,11 @@ export class NavbarComponent{
 
     login() {
         this.loading = true;
+        localStorage.removeItem('currentUser');
         this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(
                 data => {
-                    //this.router.navigate([this.returnUrl]);
+                    this.router.navigate([this.returnUrl]);
                     console.debug("zalogowano!")
                     this.loggedin = true;
                     this.loading = false;
@@ -57,6 +62,7 @@ export class NavbarComponent{
     logout() {
         this.authenticationService.logout();
         this.loggedin = false;
+        this.router.navigate([this.returnUrl]);
         console.debug("wylogowano!")
     }
 }
