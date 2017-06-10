@@ -21,6 +21,10 @@ import { FrontComponent } from './front/index';
 import { PaymentComponent } from './payment/index';
 import { NavbarComponent } from './navbar/index';
 import { ProductManagerComponent } from './product-manager/index'
+import { OrderHistoryComponent } from './order-history/index'
+import { AccountComponent } from './account/index'
+import { OrdersComponent } from './orders/index'
+import { BillingComponent } from './billing/index'
 
 //Merged
 import { ShowcaseComponent } from './showcase/showcase.component';
@@ -52,6 +56,10 @@ import { CartComponent } from './cart/cart.component';
         FrontComponent,
         PaymentComponent,
         ProductManagerComponent,
+        OrderHistoryComponent,
+        AccountComponent,
+        OrdersComponent,
+        BillingComponent,
         //Merged
         ShowcaseComponent,
         SearchBarComponent,

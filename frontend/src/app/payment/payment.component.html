@@ -32,15 +32,25 @@
 						</tr>
 					</tbody>
 					<tfoot>
-						<tr class="visible-xs">
-							<td class="text-center"><strong>Total 1.99999</strong></td>
-						</tr>
 						<tr>
 							<td><a [routerLink]="['/']" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
 							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center"><strong>Total {{ getTotalPrice() | number:'.2-2'}} zł</strong></td>
-							<td><a *ngIf="products" href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+							<td class="hidden-xs text-center"><strong>Total {{ getTotalPrice() + model.price | number:'.2-2'}} zł</strong></td>
+							<td><a [routerLink]="['/billing']"*ngIf="products" class="btn btn-success btn-block" (click)="saveMethod(model)">Checkout <i class="fa fa-angle-right"></i></a></td>
 						</tr>
 					</tfoot>
 				</table>
+
+				
+				            <div class="form-group">
+                                <div class="col-md-6 pull-right"><strong>Delivery method:</strong>
+                                <select class="form-control" id="power"
+                                        required
+                                        [(ngModel)]="model" name="power"
+                                        #power="ngModel">
+                                <option *ngFor="let pow of deliveryMethods" [ngValue]="pow">{{pow.name}} - {{pow.price | number:'.2-2'}} zł</option>
+                                </select>
+								</div>
+                            </div>
+							
 </div>

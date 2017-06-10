@@ -6,6 +6,10 @@ import { RegisterComponent } from './register/index';
 import { FrontComponent } from './front/index';
 import { PaymentComponent } from './payment/index';
 import { ProductManagerComponent } from './product-manager/index'
+import { OrderHistoryComponent } from './order-history/index'
+import { AccountComponent } from './account/index'
+import { OrdersComponent } from './orders/index'
+import { BillingComponent } from './billing/index'
 import { AuthGuard } from './_guards/index';
 
 // canActivate: [AuthGuard]
@@ -15,8 +19,12 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'storeFront', component: FrontComponent },
-    { path: 'payment', component: PaymentComponent },
+    { path: 'payment', component: PaymentComponent, canActivate: [AuthGuard], data: { role: "ROLE_USER" }},
+    { path: 'billing', component: BillingComponent, },  
     { path: 'products', component: ProductManagerComponent, canActivate: [AuthGuard], data: { role: "ROLE_ADMIN" } },
+    { path: 'history', component: OrderHistoryComponent, canActivate: [AuthGuard], data: { role: "ROLE_USER" } },
+    { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
+    { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard], data: { role: "ROLE_ADMIN" } },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

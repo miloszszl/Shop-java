@@ -1,6 +1,5 @@
 package service;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -23,9 +22,6 @@ public class UserServiceImpl implements UserService {
 
     private static List<User> users;
 
-    static {
-        users = populateDummyUsers();
-    }
 
     public List<User> findAllUsers() {
 
@@ -33,8 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     public User findById(long id) {
+
+        List<User> users = dbUtil.readAll(User.class);
+
         for (User user : users) {
-            if (user.getIdUser() == id) {
+            if (user.getId() == id) {
                 return user;
             }
         }
@@ -63,7 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void saveUser(User user) {
-        user.setIdUser(((int) counter.incrementAndGet())); // counter.incrementAndGet() returns long type so our IdUser
+        user.setId(((int) counter.incrementAndGet())); // counter.incrementAndGet() returns long type so our IdUser
         //users.add(user);                                   // should be long? For now temp fix is to cast to int.
 
         System.out.println("Tworzenie usera w bazie: " + user.getLogin() + " " + user.getEmail());
@@ -76,7 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteUserById(long id) {
-        users.removeIf(user -> user.getIdUser() == id);
+        users.removeIf(user -> user.getId() == id);
     }
 
     public boolean isUserExist(User user) {
@@ -93,58 +92,6 @@ public class UserServiceImpl implements UserService {
             }
         }
         return false;
-    }
-
-    private static List<User> populateDummyUsers() {
-        List<User> users = new ArrayList<>();
-         users.add(new User(((int) counter.incrementAndGet()),
-                "Adam",
-                "Jensen",
-                "adamjensen",
-                "hunter2",
-                "1some@mail.com",
-                "123123123",
-                "salt",
-                new City(1,"Krakuf"),
-                "streetname",
-                "house number",
-                new AccountType(1,"Basic"),
-                null,
-                null,
-                null));
-
-        users.add(new User(((int) counter.incrementAndGet()),
-                "Gordon",
-                "Freeman",
-                "half-life",
-                "hunter2",
-                "2some@mail.com",
-                "123123123",
-                "salt",
-                new City(1,"Krakuf"),
-                "streetname",
-                "house number",
-                new AccountType(1,"Basic"),
-                null,
-                null,
-                null));
-
-        users.add(new User(((int) counter.incrementAndGet()),
-                "Duke",
-                "Nukem",
-                "dukenukem",
-                "hunter2",
-                "3some@mail.com",
-                "123123123",
-                "salt",
-                new City(1,"Krakuf"),
-                "streetname",
-                "house number",
-                new AccountType(1,"Basic"),
-                null,
-                null,
-                null));
-        return users;
     }
 
     public void deleteAllUsers() {

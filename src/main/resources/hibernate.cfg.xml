@@ -44,7 +44,6 @@
         <mapping class="POJO.RateId"/>
         <mapping class="POJO.User"/>
 
-
         <!-- List of XML mapping files
         <mapping resource="Employee.hbm.xml"/>-->
 

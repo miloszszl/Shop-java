@@ -8,6 +8,7 @@ export class CartService {
 
   products: any[] = []
   cartTotal: number = 0
+  method: any = null
 
   private productAddedSource = new Subject<any>()
 
@@ -22,7 +23,6 @@ export class CartService {
     this.cartTotal += parsedPrice
     //Search this product on the cart and increment the quantity
     this.products = this.products.map(_product => {
-      console.debug(_product);
       if(_product.product.id == product.id){
         _product.quantity++
         exists = true
@@ -37,8 +37,9 @@ export class CartService {
         quantity:1,
         
       })
+      
     }
-
+    console.debug(this.products)
     this.productAddedSource.next({ products: this.products, cartTotal: this.cartTotal })
   }
 
@@ -61,5 +62,16 @@ export class CartService {
 
   getProducts(){
     return this.products;
+  }
+
+  saveMethod(method){
+    this.method = method;
+    console.debug(method)
+    console.debug(this.method)
+  }
+
+  getMethod(){
+    console.debug(this.method)
+    return this.method;
   }
 }

@@ -1,0 +1,179 @@
+<div class="container wrapper">
+            <div [hidden]="submitted" class="row cart-body">
+                <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+                <div class="col-sm-12">
+                    <!--SHIPPING METHOD-->
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Address</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <h4>Shipping Address</h4>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Country:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="country"  readonly
+                                    [(ngModel)]="model.country" name="country"
+                                    #firstname="ngModel"/>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="col-md-6 col-xs-12">
+                                    <strong>First Name:</strong>
+                                    <input type="text" name="first_name" class="form-control" required id="first_name"
+                                    [(ngModel)]="model.firstName"/>
+                                </div>
+                                <div class="span1"></div>
+                                <div class="col-md-6 col-xs-12">
+                                    <strong>Last Name:</strong>
+                                    <input type="text" name="last_name" class="form-control" required
+                                     [(ngModel)]="model.lastName"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Street:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="streetName" class="form-control" required
+                                    [(ngModel)]="model.streetName"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>House number:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="address" class="form-control" required
+                                    [(ngModel)]="model.houseNumber"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>City:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="city" class="form-control" required
+                                    [(ngModel)]="model.city2"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>State:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="state" class="form-control" required
+                                    [(ngModel)]="model.state"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Zip / Postal Code:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="zip_code" class="form-control" required
+                                    [(ngModel)]="model.postalCode"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Phone Number:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="phone_number" class="form-control" required
+                                    [(ngModel)]="model.phone"/>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12"><strong>Email Address:</strong></div>
+                                <div class="col-md-12">
+                                    <input type="text" name="email_address" class="form-control" required
+                                    [(ngModel)]="model.email"/>
+                                
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>                                
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>          
+                </div>
+
+                </form>
+            </div>
+
+            <div [hidden]="!submitted" class="row cart-body">
+                <div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+    		<div class="invoice-title">
+    			<h2>Invoice</h2><h3 class="pull-right">Order</h3>
+    		</div>
+    		<hr>
+    		<div class="row">
+    			<div class="col-xs-6">
+    				<address>
+        			<strong>Shipping To:</strong><br>
+    					{{model.firstName}} {{model.lastName}}<br>
+    					{{model.address}}<br>
+    					{{model.city2}}, {{model.state}}<br>
+    					{{model.postalCode}}<br>
+                        {{model.phone}}<br>
+                        {{model.email}}
+    				</address>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-md-12">
+    		<div class="panel panel-default">
+    			<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Order summary</strong></h3>
+    			</div>
+    			<div class="panel-body">
+    				<div class="table-responsive">
+    					<table class="table table-condensed">
+    						<thead>
+                                <tr>
+        							<td><strong>Item</strong></td>
+        							<td class="text-center"><strong>Price</strong></td>
+        							<td class="text-center"><strong>Quantity</strong></td>
+        							<td class="text-right"><strong>Totals</strong></td>
+                                </tr>
+    						</thead>
+    						<tbody>
+    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
+    							<tr *ngFor="let item of products">
+    								<td>{{item.product.name}}</td>
+    								<td class="text-center">{{item.product.price | number:'.2-2'}} zł</td>
+    								<td class="text-center">{{item.quantity}}</td>
+    								<td class="text-right">{{item.product.price * item.quantity | number:'.2-2'}} zł</td>
+    							</tr>
+    							<tr>
+    								<td class="thick-line"></td>
+    								<td class="thick-line"></td>
+    								<td class="thick-line text-center"><strong>Subtotal</strong></td>
+    								<td class="thick-line text-right"> {{ getTotalPrice() | number:'.2-2'}} zł</td>
+    							</tr>
+    							<tr>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Shipping</strong></td>
+    								<td class="no-line text-right">{{method.price | number:'.2-2'}} zł</td>
+    							</tr>
+    							<tr>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Total</strong></td>
+    								<td class="no-line text-right">{{ getTotalPrice() + method.price | number:'.2-2'}} zł</td>
+    							</tr>
+    						</tbody>
+    					</table>
+    				</div>
+                    <a  class="btn btn-success btn-block" (click)="makeOrder()">Finalize <i class="fa fa-angle-right"></i></a>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>
+            </div>
+            
+    </div>

@@ -15,6 +15,10 @@ export class UserService {
         return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
+    getByLogin(login: string) {
+        return this.http.get('/api/users/' + login, this.jwt()).map((response: Response) => response.json());
+    }
+
     create(user: User) {
         return this.http.post('/api/users/', user, this.jwt())/*.map((response: Response) => response.json())*/; // http://stackoverflow.com/a/35734684
     }

@@ -16,7 +16,7 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idUzytkownika",unique = true, nullable = false)
-    private int idUser;
+    private int id;
 
     @Column(name="imie",length = 30)
     private String firstName;
@@ -38,6 +38,15 @@ public class User {
 
     @Column(name="sol",length = 10)
     private String salt;
+
+    @Column(name="miasto",length = 100)
+    private String city2;
+
+    @Column(name="wojewodztwo",length = 100)
+    private String state;
+
+    @Column(name="kodpocztowy",length = 100)
+    private String postalCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idMiasta")
@@ -64,8 +73,8 @@ public class User {
 
     public User(){}
 
-    public User(int idUser,String name, String lastName, String login, String password, String mail, String phone, String salt, City city, String streetName, String houseNumber, AccountType accountType, List<Comment> comments, List<Rate> rates, List<Order> orders) {
-        this.idUser=idUser;
+    public User(int id, String name, String lastName, String login, String password, String mail, String phone, String salt, String city2, String state, String postalCode, City city, String streetName, String houseNumber, AccountType accountType, List<Comment> comments, List<Rate> rates, List<Order> orders) {
+        this.id = id;
         this.firstName = name;
         this.lastName = lastName;
         this.login = login;
@@ -73,6 +82,9 @@ public class User {
         this.email = mail;
         this.phone = phone;
         this.salt = salt;
+        this.city2 = city2;
+        this.state = state;
+        this.postalCode = postalCode;
         this.city = city;
         this.streetName = streetName;
         this.houseNumber = houseNumber;
@@ -82,12 +94,12 @@ public class User {
         this.orders = orders;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public int getId() {
+        return id;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setId(int idUser) {
+        this.id = idUser;
     }
 
     public String getFirstName() {
@@ -135,6 +147,7 @@ public class User {
         }
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -183,6 +196,51 @@ public class User {
         else
         {
             this.salt = salt;
+        }
+    }
+
+    public String getCity2() {
+        return city2;
+    }
+
+    public void setCity2(String city2) throws BufferOverflowException{
+        if(city2.length()>100)
+        {
+            throw new BufferOverflowException();
+        }
+        else
+        {
+            this.city2 = city2;
+        }
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setstate(String state) throws BufferOverflowException{
+        if(state.length()>100)
+        {
+            throw new BufferOverflowException();
+        }
+        else
+        {
+            this.state = state;
+        }
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) throws BufferOverflowException{
+        if(postalCode.length()>100)
+        {
+            throw new BufferOverflowException();
+        }
+        else
+        {
+            this.postalCode = city2;
         }
     }
 

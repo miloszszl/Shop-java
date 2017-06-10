@@ -20,7 +20,6 @@ export class CartComponent implements OnInit {
   expandedHeight: string
   cartTotal: number = 0
 
-
   changeDetectorRef: ChangeDetectorRef
 
 
@@ -69,5 +68,4 @@ export class CartComponent implements OnInit {
   onPayClick(){
     localStorage.setItem("cartList", JSON.stringify(this.products));
   }
-
 }

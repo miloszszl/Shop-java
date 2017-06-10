@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -36,14 +37,23 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUser(@PathVariable("id") long id) {
-        System.out.println("Fetching User with id " + id);
-        User user = userService.findById(id);
+    @RequestMapping(value = "/api/users/{login}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUser(@PathVariable("login") String login) {
+        System.out.println("Fetching User with login " + login);
+        User user = userService.findByLogin(login);
+
         if (user == null) {
-            System.out.println("User with id " + id + " not found");
+            System.out.println("User with id " + login + " not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!principal.equals(user.getLogin())) { // Check for admin later
+            System.out.println("This user can access only himself");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -63,7 +73,7 @@ public class UserController {
 
         userService.saveUser(user);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getIdUser()).toUri());
+        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 

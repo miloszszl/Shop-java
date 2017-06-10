@@ -7,11 +7,11 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     moduleId: module.id.toString(),
-    templateUrl: 'payment.component.html',
-    styles: [ require('../shared/bootstrap.css'), require('./payment.component.css') ],
+    templateUrl: 'account.component.html',
+    styles: [ require('../shared/bootstrap.css'), require('./account.component.css') ],
 })
 
-export class PaymentComponent implements OnInit {
+export class AccountComponent implements OnInit {
     
     currentUser: User;
     users: User[] = [];
@@ -29,11 +29,14 @@ export class PaymentComponent implements OnInit {
             "name": "Poczta polska",
             "price": 7
         },
+        {
+            "id": 3,
+            "name": "Odbiór osobisty",
+            "price": 0
+        }
     ];
 
     selectedDeliveryMethod: any;
-    
-    model:any = this.deliveryMethods[0]
 
     changeDetectorRef: ChangeDetectorRef
 
@@ -58,11 +61,6 @@ export class PaymentComponent implements OnInit {
 
   deleteProduct(product){
     this.cartService.deleteProductFromCart(product)
-  }
-
-  saveMethod(method){
-      this.cartService.saveMethod(method)
-      console.debug("ZAPISUJE METODE");
   }
 
 }
