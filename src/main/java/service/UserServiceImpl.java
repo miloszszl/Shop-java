@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = dbUtil.readAll(User.class);
 
         for (User user : users) {
-            if (user.getId() == id) {
+            if (user.getIdUser() == id) {
                 return user;
             }
         }
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void saveUser(User user) {
-        user.setId(((int) counter.incrementAndGet())); // counter.incrementAndGet() returns long type so our IdUser
+        user.setIdUser(((int) counter.incrementAndGet())); // counter.incrementAndGet() returns long type so our IdUser
         //users.add(user);                                   // should be long? For now temp fix is to cast to int.
 
         System.out.println("Tworzenie usera w bazie: " + user.getLogin() + " " + user.getEmail());
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteUserById(long id) {
-        users.removeIf(user -> user.getId() == id);
+        users.removeIf(user -> user.getIdUser() == id);
     }
 
     public boolean isUserExist(User user) {

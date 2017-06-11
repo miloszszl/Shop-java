@@ -359,7 +359,7 @@ CREATE TABLE IF NOT EXISTS `zdjecia` (
 -- Zrzut struktury widok shop.front_page_view
 -- Usuwanie tabeli tymczasowej i tworzenie ostatecznej struktury WIDOKU
 DROP TABLE IF EXISTS `front_page_view`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY INVOKER VIEW `front_page_view` AS select `zdjecia`.`link` AS `link`,`produkty`.`nazwa` AS `nazwa`,`produkty`.`idProduktu` AS `idProduktu`,`produkty`.`ilosc` AS `ilosc`,`produkty`.`cena` AS `cena` from (`produkty` left join `zdjecia` on((`zdjecia`.`idProduktu` = `produkty`.`idProduktu`))) where (`produkty`.`ilosc` > 0) order by rand() limit 6;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY INVOKER VIEW `front_page_view` AS select `zdjecia`.`link` AS `link`,`produkty`.`nazwa` AS `nazwa`,`produkty`.`idProduktu` AS `idProduktu`,`produkty`.`ilosc` AS `ilosc`,`produkty`.`cena` AS `cena` from (`produkty` left join `zdjecia` on((`zdjecia`.`idProduktu` = `produkty`.`idProduktu`))) where (`produkty`.`ilosc` > 0) userOrder by rand() limit 6;
 
 -- Zrzut struktury widok shop.v_order_info
 -- Usuwanie tabeli tymczasowej i tworzenie ostatecznej struktury WIDOKU

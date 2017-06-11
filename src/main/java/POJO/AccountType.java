@@ -10,14 +10,14 @@ import java.util.List;
  * Created by Miłosz on 18.03.2017.
  */
 @Entity
-@Table(name="TypyKont")
+@Table(name="account_type")
 public class AccountType {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "idTypuKonta",unique = true, nullable = false)
+    @Column(name="id_acount_type",unique = true, nullable = false)
     private int idAccountType;
-    @Column(name = "typKonta")
+
     private String accountTypeName;
     @OneToMany(fetch = FetchType.EAGER ,mappedBy = "accountType")
     private List<User> users=null;

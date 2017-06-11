@@ -3,6 +3,7 @@ package POJO;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,43 +11,40 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "Zamowienia")
-public class Order {
+@Table(name = "user_order")
+public class UserOrder {
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="idZamowienia",unique = true, nullable = false)
-    private int idOrder;
+    @Column(name="id_user_order",unique = true, nullable = false)
+    private int idUserOrder;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idUzytkownika")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_user")
     private User user;
 
     //@Temporal(TemporalType.TIMESTAMP)
-    @Column(name ="dataZamowienia")
-    private Timestamp orderDatetime;
+    private Date orderDatetime;
 
     //@Temporal(TemporalType.TIMESTAMP)
-    @Column(name ="dataRealizacjiZamowienia")
-    private Timestamp orderRealizationDatetime;
+    private Date orderRealizationDatetime;
 
-    @Column(name ="uwaga")
     private String note;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idDostawcy")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_provider")
     private Provider provider;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idStatusuZamowienia")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_order_status")
     private OrderStatus orderStatus;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idProductOrder.order")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "idProductOrder.userOrder",cascade = CascadeType.ALL)
     private List<ProductOrder> productOrder;
 
-    public Order(){}
+    public UserOrder(){}
 
-    public Order(int idOrder, User user, Timestamp orderDatetime, Timestamp orderRealizationDatetime, String note, Provider provider, OrderStatus orderStatus,List productOrder) {
-        this.idOrder = idOrder;
+    public UserOrder(User user, Timestamp orderDatetime, Timestamp orderRealizationDatetime, String note, Provider provider, OrderStatus orderStatus, List productOrder) {
+
         this.user = user;
         this.orderDatetime = orderDatetime;
         this.orderRealizationDatetime = orderRealizationDatetime;
@@ -57,11 +55,11 @@ public class Order {
     }
 
     public int getIdOrder() {
-        return idOrder;
+        return idUserOrder;
     }
 
     public void setIdOrder(int idOrder) {
-        this.idOrder = idOrder;
+        this.idUserOrder = idOrder;
     }
 
     public User getUser() {
@@ -72,19 +70,19 @@ public class Order {
         this.user = user;
     }
 
-    public Timestamp getOrderDatetime() {
+    public Date getOrderDatetime() {
         return orderDatetime;
     }
 
-    public void setOrderDatetime(Timestamp orderDatetime) {
+    public void setOrderDatetime(Date orderDatetime) {
         this.orderDatetime = orderDatetime;
     }
 
-    public Timestamp getOrderRealizationDatetime() {
+    public Date getOrderRealizationDatetime() {
         return orderRealizationDatetime;
     }
 
-    public void setOrderRealizationDatetime(Timestamp orderRealizationDatetime) {
+    public void setOrderRealizationDatetime(Date orderRealizationDatetime) {
         this.orderRealizationDatetime = orderRealizationDatetime;
     }
 
@@ -112,11 +110,11 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public List getProductOrder() {
+    public List<ProductOrder> getProductOrder() {
         return productOrder;
     }
 
-    public void setProductOrder(List productOrder) {
+    public void setProductOrder(List<ProductOrder> productOrder) {
         this.productOrder = productOrder;
     }
 }

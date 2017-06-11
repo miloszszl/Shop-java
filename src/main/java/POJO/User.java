@@ -1,7 +1,5 @@
 package POJO;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.nio.BufferOverflowException;
 import java.util.List;
@@ -10,56 +8,44 @@ import java.util.List;
  * Created by Miłosz on 18.03.2017.
  */
 @Entity
-@Table(name = "uzytkownicy")
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idUzytkownika",unique = true, nullable = false)
-    private int id;
+    @Column(name = "id_user",unique = true, nullable = false)
+    private int idUser;
 
-    @Column(name="imie",length = 30)
     private String firstName;
 
-    @Column(name="nazwisko",length = 30)
     private String lastName;
 
-    @Column(name="login",length = 20)
     private String login;
 
-    @Column(name="haslo",length = 65)
     private String password;
 
-    @Column(name="mail",length=50)
     private String email;
 
-    @Column(name="telefon",length = 12)
     private String phone;
 
-    @Column(name="sol",length = 10)
     private String salt;
 
-    @Column(name="miasto",length = 100)
     private String city2;
 
-    @Column(name="wojewodztwo",length = 100)
     private String state;
 
-    @Column(name="kodpocztowy",length = 100)
     private String postalCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idMiasta")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_city")
     private City city;
 
-    @Column(name="nazwaUlicy",length = 30)
     private String streetName;
 
-    @Column(name="numerDomu",length = 10)
     private String houseNumber;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idTypuKonta")
+    @JoinColumn(name = "id_account_type")
     private AccountType accountType;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idComment.user",cascade=CascadeType.ALL)
@@ -68,13 +54,13 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idRate.user",cascade=CascadeType.ALL)
     private List<Rate> rates=null;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade=CascadeType.ALL)
-    private List<Order> orders=null;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",cascade=CascadeType.ALL)
+    private List<UserOrder> userOrders =null;
 
     public User(){}
 
-    public User(int id, String name, String lastName, String login, String password, String mail, String phone, String salt, String city2, String state, String postalCode, City city, String streetName, String houseNumber, AccountType accountType, List<Comment> comments, List<Rate> rates, List<Order> orders) {
-        this.id = id;
+    public User(int idUser, String name, String lastName, String login, String password, String mail, String phone, String salt, String city2, String state, String postalCode, City city, String streetName, String houseNumber, AccountType accountType, List<Comment> comments, List<Rate> rates, List<UserOrder> userOrders) {
+        this.idUser = idUser;
         this.firstName = name;
         this.lastName = lastName;
         this.login = login;
@@ -91,15 +77,23 @@ public class User {
         this.accountType = accountType;
         this.comments = comments;
         this.rates = rates;
-        this.orders = orders;
+        this.userOrders = userOrders;
     }
 
-    public int getId() {
-        return id;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setId(int idUser) {
-        this.id = idUser;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getFirstName() {
@@ -147,7 +141,7 @@ public class User {
         }
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -244,7 +238,7 @@ public class User {
         }
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public City getCity() {
         return city;
     }
@@ -291,7 +285,7 @@ public class User {
         this.accountType = accountType;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public List<Comment> getComments() {
         return comments;
     }
@@ -300,7 +294,7 @@ public class User {
         this.comments = comments;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public List<Rate> getRates() {
         return rates;
     }
@@ -309,12 +303,12 @@ public class User {
         this.rates = rates;
     }
 
-    @JsonIgnore
-    public List<Order> getOrders() {
-        return orders;
+    //@JsonIgnore
+    public List<UserOrder> getUserOrders() {
+        return userOrders;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setUserOrders(List<UserOrder> userOrders) {
+        this.userOrders = userOrders;
     }
 }

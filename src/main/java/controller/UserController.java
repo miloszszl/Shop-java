@@ -2,6 +2,9 @@ package controller;
 
 import java.util.List;
 
+import POJO.AccountType;
+import dao.AccountTypeDao;
+import dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,13 +27,19 @@ public class UserController {
     private UserService userService; // Service which will do all data retrieval/manipulation work.
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private AccountTypeDao accountTypeDao;
+
+    @Autowired
     public UserController(UserService userService) { // Constructor injection, field injection is not recommended.
         this.userService = userService;
     }
 
     @RequestMapping(value = "/api/users/", method = RequestMethod.GET)
     public ResponseEntity<List<User>> listAllUsers() {
-        List<User> users = userService.findAllUsers();
+        List<User> users = userDao.findAll();
         if(users.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT); // You many decide to return HttpStatus.NOT_FOUND
         }
@@ -39,8 +48,9 @@ public class UserController {
 
     @RequestMapping(value = "/api/users/{login}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getUser(@PathVariable("login") String login) {
+
         System.out.println("Fetching User with login " + login);
-        User user = userService.findByLogin(login);
+        User user = userDao.findByLoginIgnoreCase(login);
 
         if (user == null) {
             System.out.println("User with id " + login + " not found");
@@ -60,28 +70,31 @@ public class UserController {
     @RequestMapping(value = "/api/users", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
 
-        System.out.println("Creating User --- " + user.getLogin());
-        if (userService.isUserExist(user)) {    // TODO Async field checking
+        AccountType accountType=accountTypeDao.findByAccountTypeNameIgnoreCase("user");
+        user.setAccountType(accountType);
+
+        if(userDao.findByLoginIgnoreCase(user.getLogin())!=null){
             System.out.println("A User with name --- " + user.getLogin() + " --- already exist");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        if (userService.isEmailTaken(user.getEmail())) {
+        if(userDao.findByEmailIgnoreCase(user.getEmail())!=null){
             System.out.println("A User with email --- " + user.getEmail() + " --- already exist");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        userService.saveUser(user);
+        userDao.save(user);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
+        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getIdUser()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
+
     }
 
     @RequestMapping(value = "/api/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
         System.out.println("Updating User " + id);
 
-        User currentUser = userService.findById(id);
+        User currentUser=userDao.findOne((int) id);
 
         if (currentUser==null) {
             System.out.println("User with id " + id + " not found");
@@ -98,15 +111,16 @@ public class UserController {
 
     @RequestMapping(value = "/api/user/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
+
         System.out.println("Fetching & Deleting User with id " + id);
 
-        User user = userService.findById(id);
+        User user = userDao.findOne((int)id);//userService.findById(id);
         if (user == null) {
             System.out.println("Unable to delete. User with id " + id + " not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        userService.deleteUserById(id);
+        userDao.delete(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -114,7 +128,7 @@ public class UserController {
     public ResponseEntity<User> deleteAllUsers() {
         System.out.println("Deleting All Users");
 
-        userService.deleteAllUsers();
+        userDao.deleteAll();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

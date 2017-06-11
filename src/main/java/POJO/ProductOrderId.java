@@ -11,23 +11,23 @@ import javax.persistence.ManyToOne;
 public class ProductOrderId implements java.io.Serializable{
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Order order;
+    private UserOrder userOrder;
     @ManyToOne(cascade = CascadeType.ALL)
     private Product product;
 
     public ProductOrderId(){}
 
-    public ProductOrderId(Order order, Product product) {
-        this.order = order;
+    public ProductOrderId(UserOrder userOrder, Product product) {
+        this.userOrder = userOrder;
         this.product = product;
     }
 
-    public Order getOrder() {
-        return order;
+    public UserOrder getUserOrder() {
+        return userOrder;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setUserOrder(UserOrder userOrder) {
+        this.userOrder = userOrder;
     }
 
     public Product getProduct() {

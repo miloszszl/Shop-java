@@ -7,7 +7,7 @@ import java.security.Timestamp;
 /**
  * Created by Miłosz on 18.03.2017.
  */
-
+//Not used
 @Entity
 @Table(name = "Blokady")
 public class Lock {

@@ -2,9 +2,8 @@ package service;
 
 import DBUtils.DBUtil;
 import DBUtils.HibernateUtil;
-import POJO.Order;
+import POJO.UserOrder;
 import POJO.Product;
-import POJO.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,13 +23,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findAllOrders() {
+    public List<UserOrder> findAllOrders() {
         return null;
     }
 
     @Override
-    public void saveOrder(Order order) {
-        dbUtil.create(order);
+    public void saveOrder(UserOrder userOrder) {
+        dbUtil.create(userOrder);
     }
 
 }

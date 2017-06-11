@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 /**
  * Created by Miłosz on 18.03.2017.
  */
+//Not used
 //@Entity
 @Embeddable
 @Table(name = "HistoriaLogowan")

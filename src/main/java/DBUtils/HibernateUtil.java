@@ -163,7 +163,7 @@ public class HibernateUtil implements DBUtil {
         SessionFactory sessionFactory=getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query q = session.createQuery(s);
+        Query q = (Query) session.createQuery(s);
         q.executeUpdate();
         session.getTransaction().commit();
         session.close();

@@ -10,16 +10,16 @@ import java.util.List;
  * Created by Miłosz on 18.03.2017.
  */
 @Entity
-@Table(name="Marki")
+@Table(name="brand")
 public class Brand {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "idMarki",unique = true, nullable = false)
+    @Column(name="id_brand",unique = true, nullable = false)
     private int idBrand;
-    @Column(name = "nazwa")
+
     private String brandName;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "brand")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "brand",cascade = CascadeType.ALL)
     private List<Product> products;
 
     public Brand(){}
@@ -30,7 +30,7 @@ public class Brand {
         this.products = products;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public int getIdBrand() {
         return idBrand;
     }
@@ -55,7 +55,7 @@ public class Brand {
         }
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public List<Product> getProducts() {
         return products;
     }

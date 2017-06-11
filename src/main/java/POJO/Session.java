@@ -8,8 +8,7 @@ import java.security.Timestamp;
  * Created by Miłosz on 18.03.2017.
  */
 
-//consider if we need session
-//not completed yet
+//not used
 @Entity
 @Table(name = "sesja")
 public class Session {

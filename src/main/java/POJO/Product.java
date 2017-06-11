@@ -11,57 +11,50 @@ import java.util.Set;
  * Created by Miłosz on 18.03.2017.
  */
 @Entity
-@Table(name = "Produkty")
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "idProduktu",unique = true, nullable = false)
+    @Column(name = "id_product",unique = true, nullable = false)
     private int id;
 
-    @Column(name="nazwa")
     private String name;
 
-    @Column(name="opis")
     private String description;
 
-    @Column(name="ilosc")
     private int amount;
 
-    @Column(name="zdjecie")
     private String photo;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idKategorii")
-    private Category categories; // Change to plural form here once, or change in everywhere in the FE.
+    @JoinColumn(name = "id_category")
+    private Category category; // Change to plural form here once, or change in everywhere in the FE.
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idMarki")
+    @JoinColumn(name = "id_brand")
     private Brand brand;
 
-    @Column(name="cena")
     private BigDecimal price;
 
-    @Column(name="ocena")
     private double totalRate;
 
-    //@LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(fetch = FetchType.LAZY, mappedBy ="idProductOrder.product")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy ="idProductOrder.product",cascade = CascadeType.ALL)
     private Set<ProductOrder> productOrder;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "idComment.product")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "idComment.product",cascade = CascadeType.ALL)
     private Set<Comment> comments;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "idRate.product")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "idRate.product",cascade = CascadeType.ALL)
     private Set<Rate> rates;
 
     public Product(){}
 
-    public Product(int id, String name, String description, int amount, Category categories, Brand brand, BigDecimal price, double totalRate, Set<ProductOrder> productOrder, Set<Comment> comments, Set<Rate> rates) {
+    public Product(int id, String name, String description, int amount, Category category, Brand brand, BigDecimal price, double totalRate, Set<ProductOrder> productOrder, Set<Comment> comments, Set<Rate> rates) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.amount = amount;
-        this.categories = categories;
+        this.category = category;
         this.brand = brand;
         this.price = price;
         this.totalRate = totalRate;
@@ -120,12 +113,12 @@ public class Product {
         }
     }
 
-    public Category getCategories() {
-        return categories;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategories(Category category) {
-        this.categories = category;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Brand getBrand() {

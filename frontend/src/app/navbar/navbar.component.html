@@ -29,7 +29,7 @@
             </div>
             <div *ngIf="loggedin" class=" navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav navbar-right">
-                    <li *ngIf="user.role == 'ROLE_ADMIN'" [routerLink]="['/orders']"><a class="btn btn-link">Current orders</a></li>
+                    <li *ngIf="user.role == 'ROLE_ADMIN'" [routerLink]="['/userOrders']"><a class="btn btn-link">Current userOrders</a></li>
                     <li *ngIf="user.role == 'ROLE_ADMIN'" [routerLink]="['/products']"><a class="btn btn-link">Manage products</a></li>
                     <li *ngIf="user.role == 'ROLE_USER'" [routerLink]="['/history']"><a class="btn btn-link">Order history</a></li>
                     <li><a class="btn btn-link" [routerLink]="['/account']">{{user.username}}'s account</a></li>

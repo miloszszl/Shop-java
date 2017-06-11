@@ -33,7 +33,7 @@
         <mapping class="POJO.CommentId"/>
         <mapping class="POJO.Lock"/>
         <mapping class="POJO.LoggingHistory"/>
-        <mapping class="POJO.Order"/>
+        <mapping class="POJO.UserOrder"/>
         <mapping class="POJO.OrderStatus"/>
         <mapping class="POJO.Picture"/>
         <mapping class="POJO.Product"/>

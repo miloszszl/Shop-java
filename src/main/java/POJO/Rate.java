@@ -8,22 +8,19 @@ import java.sql.Timestamp;
  * Created by Miłosz on 18.03.2017.
  */
 @Entity
-@Table(name = "Oceny")
+@Table(name = "rate")
 @AssociationOverrides({
         @AssociationOverride(name = "idRate.user",
-                joinColumns = @JoinColumn(name = "idUzytkownika")),
+                joinColumns = @JoinColumn(name = "id_user")),
         @AssociationOverride(name = "idRate.product",
-                joinColumns = @JoinColumn(name = "idProduktu")) })
+                joinColumns = @JoinColumn(name = "id_product")) })
 public class Rate {
 
     @EmbeddedId
     private RateId idRate;
 
-    //@Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "data")
     private Timestamp datetime;
 
-    @Column(name = "wartosc")
     private double value;
 
     public Rate(){}

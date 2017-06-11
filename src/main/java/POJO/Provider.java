@@ -10,30 +10,28 @@ import java.util.List;
  * Created by Miłosz on 18.03.2017.
  */
 @Entity
-@Table(name = "uzytkownicy")
+@Table(name = "provider")
 public class Provider {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "idDostawcy",unique = true, nullable = false)
+    @Column(name = "id_provider",unique = true, nullable = false)
     private int idProvider;
 
-    @Column(name = "nazwa")
     private String providerName;
 
-    @Column(name = "cena")
     private BigDecimal providerPrice;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "provider")
-    private List<Order> orders;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "provider",cascade = CascadeType.ALL)
+    private List<UserOrder> userOrders;
 
     public Provider(){}
 
-    public Provider(int idProvider,String providerName, BigDecimal providerPrice, List<Order> orders) {
+    public Provider(int idProvider,String providerName, BigDecimal providerPrice, List<UserOrder> userOrders) {
         this.idProvider=idProvider;
         this.providerName = providerName;
         this.providerPrice = providerPrice;
-        this.orders = orders;
+        this.userOrders = userOrders;
     }
 
     public int getIdProvider() {
@@ -76,11 +74,11 @@ public class Provider {
 
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<UserOrder> getUserOrders() {
+        return userOrders;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setUserOrders(List<UserOrder> userOrders) {
+        this.userOrders = userOrders;
     }
 }

@@ -8,25 +8,24 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "StatusyZamowien")
+@Table(name = "order_status")
 public class OrderStatus {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "idStatusuZamowienia",unique = true, nullable = false)
+    @Column(name = "id_order_status",unique = true, nullable = false)
     private int idOrderStatus;
 
-    @Column(name = "nazwaStatusuZamowienia")
     private String orderStatusName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderStatus", cascade=CascadeType.ALL)
-    private List<Order> orders;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "orderStatus", cascade=CascadeType.ALL)
+    private List<UserOrder> userOrders;
 
     public OrderStatus(){}
 
-    public OrderStatus(int idOrderStatus, String orderStatusName,List<Order> orders) {
+    public OrderStatus(int idOrderStatus, String orderStatusName,List<UserOrder> userOrders) {
         this.idOrderStatus = idOrderStatus;
         this.orderStatusName = orderStatusName;
-        this.orders=orders;
+        this.userOrders = userOrders;
     }
 
     public int getIdOrderStatus() {
@@ -45,11 +44,11 @@ public class OrderStatus {
         this.orderStatusName = orderStatusName;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<UserOrder> getUserOrders() {
+        return userOrders;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setUserOrders(List<UserOrder> userOrders) {
+        this.userOrders = userOrders;
     }
 }

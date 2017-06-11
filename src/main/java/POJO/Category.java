@@ -10,23 +10,24 @@ import java.util.List;
  * Created by Miłosz on 18.03.2017.
  */
 @Entity
-@Table(name="Kategorie")
+@Table(name="category")
 public class Category {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "idKategorii",unique = true, nullable = false)
+    @Column(name="id_category",unique = true, nullable = false)
     private int id;
-    @Column(name = "nazwa")
-    private String name;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "categories")
+
+    private String categoryName;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "category",cascade = CascadeType.ALL)
     private List<Product> products;
 
     public Category(){}
 
-    public Category(int id, String name, List<Product> products) {
+    public Category(int id, String categoryName, List<Product> products) {
         this.id = id;
-        this.name = name;
+        this.categoryName = categoryName;
         this.products = products;
     }
 
@@ -38,8 +39,8 @@ public class Category {
         this.id = idCategory;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
     public void setName(String categoryName) throws BufferOverflowException{
@@ -49,11 +50,11 @@ public class Category {
         }
         else
         {
-            this.name = categoryName;
+            this.categoryName = categoryName;
         }
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public List<Product> getProducts() {
         return products;
     }

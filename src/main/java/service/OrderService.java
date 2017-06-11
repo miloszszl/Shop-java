@@ -1,6 +1,6 @@
 package service;
 
-import POJO.Order;
+import POJO.UserOrder;
 import POJO.Product;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface OrderService {
 
     Product findById(long id);
-    List<Order> findAllOrders();
-    void saveOrder(Order order);
+    List<UserOrder> findAllOrders();
+    void saveOrder(UserOrder userOrder);
 }
 

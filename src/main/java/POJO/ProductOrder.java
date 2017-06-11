@@ -7,21 +7,19 @@ import java.math.BigDecimal;
  * Created by Miłosz on 18.03.2017.
  */
 @Entity
-@Table(name = "ProdutkyZamowienia")
+@Table(name = "product_order")
 @AssociationOverrides({
         @AssociationOverride(name = "idProductOrder.order",
-                joinColumns = @JoinColumn(name = "idZamowienia")),
+                joinColumns = @JoinColumn(name = "id_user_order")),
         @AssociationOverride(name = "idProductOrder.product",
-                joinColumns = @JoinColumn(name = "idProduktu")) })
+                joinColumns = @JoinColumn(name = "id_product")) })
 public class ProductOrder {
 
     @EmbeddedId
     private ProductOrderId idProductOrder;
 
-    @Column(name="ilosc")
     private int amount;
 
-    @Column(name="cenaZamowieniowa")
     private BigDecimal actualPrice;
 
     public ProductOrder() {}

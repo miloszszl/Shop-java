@@ -12,20 +12,18 @@ import java.util.List;
  * Created by Miłosz on 15.03.2017.
  */
 @Entity
-@Table(name = "Miasta")
+@Table(name = "city")
 public class City {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idMiasta",unique = true, nullable = false)
+    @Column(name="id_city",unique = true, nullable = false)
     private int idCity;
 
-    @Column(name="nazwa")
     private String cityName;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "city")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "city",cascade = CascadeType.ALL)
     private List<User> users;
-
 
     public City(){}
     public City(int idCity, String cityName)

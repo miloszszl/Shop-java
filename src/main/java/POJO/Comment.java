@@ -9,22 +9,19 @@ import java.sql.Timestamp;
  * Created by Miłosz on 18.03.2017.
  */
 @Entity
-@Table(name = "Komentarze")
+@Table(name = "comment")
 @AssociationOverrides({
         @AssociationOverride(name = "idComment.product",
-                joinColumns = @JoinColumn(name = "idProduktu")),
+                joinColumns = @JoinColumn(name = "id_product")),
         @AssociationOverride(name = "idComment.user",
-                joinColumns = @JoinColumn(name = "idUzytkownika")) })
+                joinColumns = @JoinColumn(name = "id_user")) })
 public class Comment {
 
     @EmbeddedId
     private CommentId idComment;
 
-    //@Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "data")
     private Timestamp datetime;
 
-    @Column(name="opis")
     @Type(type="text")
     private String description;
 
