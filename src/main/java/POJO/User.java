@@ -1,5 +1,7 @@
 package POJO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.nio.BufferOverflowException;
 import java.util.List;
@@ -49,12 +51,15 @@ public class User {
     private AccountType accountType;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idComment.user",cascade=CascadeType.ALL)
+    @JsonIgnore
     private List<Comment> comments=null;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idRate.user",cascade=CascadeType.ALL)
+    @JsonIgnore
     private List<Rate> rates=null;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",cascade=CascadeType.ALL)
+    @JsonIgnore
     private List<UserOrder> userOrders =null;
 
     public User(){}
@@ -294,7 +299,7 @@ public class User {
         this.comments = comments;
     }
 
-    //@JsonIgnore
+
     public List<Rate> getRates() {
         return rates;
     }

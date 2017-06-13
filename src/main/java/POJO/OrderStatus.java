@@ -1,5 +1,7 @@
 package POJO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class OrderStatus {
     private String orderStatusName;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "orderStatus", cascade=CascadeType.ALL)
+    @JsonIgnore
     private List<UserOrder> userOrders;
 
     public OrderStatus(){}

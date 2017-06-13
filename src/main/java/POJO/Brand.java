@@ -20,6 +20,7 @@ public class Brand {
 
     private String brandName;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "brand",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Product> products;
 
     public Brand(){}
@@ -30,7 +31,6 @@ public class Brand {
         this.products = products;
     }
 
-    //@JsonIgnore
     public int getIdBrand() {
         return idBrand;
     }
@@ -55,7 +55,6 @@ public class Brand {
         }
     }
 
-    //@JsonIgnore
     public List<Product> getProducts() {
         return products;
     }

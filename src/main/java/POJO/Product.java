@@ -39,12 +39,14 @@ public class Product {
     private double totalRate;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy ="idProductOrder.product",cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<ProductOrder> productOrder;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "idComment.product",cascade = CascadeType.ALL)
     private Set<Comment> comments;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "idRate.product",cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Rate> rates;
 
     public Product(){}
@@ -120,7 +122,7 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
-    @JsonIgnore
+
     public Brand getBrand() {
         return brand;
     }
@@ -144,7 +146,7 @@ public class Product {
         }
     }
 
-    @JsonIgnore
+
     public double getTotalRate() {
         return totalRate;
     }
@@ -160,7 +162,6 @@ public class Product {
         }
     }
 
-    @JsonIgnore
     public Set getProductOrder() {
         return productOrder;
     }
@@ -169,7 +170,7 @@ public class Product {
         this.productOrder = productOrder;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public Set<Comment> getComments() {
         return comments;
     }
@@ -178,7 +179,6 @@ public class Product {
         this.comments = comments;
     }
 
-    @JsonIgnore
     public Set<Rate> getRates() {
         return rates;
     }

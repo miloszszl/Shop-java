@@ -23,6 +23,7 @@ public interface UserDao extends CrudRepository<User, Integer> {
     boolean exists(Integer primaryKey);
     @Query("select count(*) from User u where u.login = :login")
     int findByLoginReturnInt(@Param("login") String login);
+    User findByLoginAndPassword(String login,String password);
     void delete(User entity);
     void deleteAll();
 

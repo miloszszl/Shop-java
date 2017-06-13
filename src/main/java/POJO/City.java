@@ -23,6 +23,7 @@ public class City {
     private String cityName;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "city",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<User> users;
 
     public City(){}
@@ -60,7 +61,6 @@ public class City {
         }
     }
 
-    @JsonIgnore
     public List<User> getUsers() {
         return users;
     }

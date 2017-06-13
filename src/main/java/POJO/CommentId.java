@@ -1,5 +1,7 @@
 package POJO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
@@ -11,9 +13,11 @@ import javax.persistence.ManyToOne;
 public class CommentId implements java.io.Serializable{
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Product product;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private User user;
 
     public CommentId(){}

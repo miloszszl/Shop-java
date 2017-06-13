@@ -19,7 +19,9 @@ public class AccountType {
     private int idAccountType;
 
     private String accountTypeName;
+
     @OneToMany(fetch = FetchType.EAGER ,mappedBy = "accountType")
+    @JsonIgnore
     private List<User> users=null;
 
 
@@ -60,7 +62,6 @@ public class AccountType {
         }
     }
 
-    @JsonIgnore
     public List<User> getUsers() {
         return users;
     }

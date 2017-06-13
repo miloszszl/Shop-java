@@ -1,5 +1,6 @@
 package security;
 
+import dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,7 +23,7 @@ import POJO.User;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    UserService userService;
+    private UserDao userDao;
 
     @Override
     public Authentication authenticate(Authentication authentication)
@@ -31,13 +32,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
         List<GrantedAuthority> authorities = new ArrayList<>();
-        List<User> allUsers = userService.findAllUsers();
-        for (User user : allUsers) {
-            if(name.equals(user.getLogin()) && password.equals(user.getPassword())) {
-                authorities.add(new SimpleGrantedAuthority(user.getAccountType().getAccountTypeName()));
-                return new UsernamePasswordAuthenticationToken(
-                        name, password, authorities);
-            }
+        User u=userDao.findByLoginAndPassword(name,password);
+
+        if(u!=null)
+        {
+            authorities.add(new SimpleGrantedAuthority(u.getAccountType().getAccountTypeName()));
+            return new UsernamePasswordAuthenticationToken(
+                    name, password, authorities);
         }
         return null;
     }

@@ -1,5 +1,7 @@
 package POJO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -23,6 +25,7 @@ public class Provider {
     private BigDecimal providerPrice;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "provider",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<UserOrder> userOrders;
 
     public Provider(){}
