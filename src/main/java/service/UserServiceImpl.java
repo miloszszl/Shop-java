@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicLong;
 import POJO.*;
 import DBUtils.DBUtil;
 import DBUtils.HibernateUtil;
+import dao.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,10 +24,13 @@ public class UserServiceImpl implements UserService {
 
     private static List<User> users;
 
+    @Autowired
+    private UserDao userDao;
 
     public List<User> findAllUsers() {
 
-        return dbUtil.readAll(User.class);
+        return userDao.findAll();
+        //return dbUtil.readAll(User.class);
     }
 
     public User findById(long id) {

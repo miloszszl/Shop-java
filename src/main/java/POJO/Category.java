@@ -54,7 +54,7 @@ public class Category {
         }
     }
 
-    //@JsonIgnore
+    @JsonIgnore
     public List<Product> getProducts() {
         return products;
     }

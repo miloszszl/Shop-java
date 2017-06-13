@@ -73,6 +73,7 @@ export class HomeComponent{
         })
 
         this.productService.getCategories().subscribe(categories => {
+          console.debug(categories)
           this.categories = categories
           this.mainFilter = {
             search: '',
