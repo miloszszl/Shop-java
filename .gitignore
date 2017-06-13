@@ -52,3 +52,5 @@ gradle-app.setting
 build
 
 /build
+
+frontend/.vs/
