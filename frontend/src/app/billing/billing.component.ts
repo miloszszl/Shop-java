@@ -1,10 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef,  } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from '../_models/index';
 import { UserService } from '../_services/index';
 import { CartService } from '../cart.service';
 import { ProductService } from '../_services/index';
 import { Subscription } from 'rxjs/Subscription';
+import { AlertService } from '../_services/index';
 
 @Component({
     moduleId: module.id.toString(),
@@ -21,8 +23,14 @@ export class BillingComponent implements OnInit {
     user:any;
     model: User
     order: any = {};
+    returnUrl: String;
+    msg:any;
     
-    constructor(private productService: ProductService, private cartService: CartService, private userService: UserService,  changeDetectorRef: ChangeDetectorRef) {
+    constructor(private productService: ProductService, private cartService: CartService, private userService: UserService,  changeDetectorRef: ChangeDetectorRef,
+        private route: ActivatedRoute,
+        private router: Router,
+        private alertService: AlertService   
+    ) {
         
     }
 
@@ -36,6 +44,7 @@ export class BillingComponent implements OnInit {
             this.model = user;
             this.model.country = "Poland"
         });
+        this.returnUrl = '/'; //this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     getTotalPrice() {
@@ -52,10 +61,23 @@ export class BillingComponent implements OnInit {
     }
 
     makeOrder() {
-        this.order.userId = this.model.id;
+        console.debug("make order")
+        console.debug(this.model)
+        console.debug(this.model.idUser)
+        this.order.userId = this.model.idUser;
         this.order.methodId = this.method.id;
         this.order.products = this.products;
-        this.productService.placeOrder(this.order).subscribe();
+        this.productService.placeOrder(this.order).subscribe(
+            data => {
+                console.debug("A")
+                this.alertService.success('Przyjęto zamówienie', true);
+                this.router.navigate([this.returnUrl]);
+            },
+            error => {
+                console.debug("B")
+                this.alertService.error(error, true);
+                this.router.navigate([this.returnUrl]);
+            });
         console.debug(this.order)
     }
 }

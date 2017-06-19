@@ -3,25 +3,18 @@ package controller;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
-import POJO.Category;
-import POJO.UserOrder;
-import POJO.Product;
-import dao.CategoryDao;
-import dao.UserOrderDao;
-import dao.ProductDao;
-import dao.UserDao;
+import POJO.*;
+import dao.*;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import POJO.User;
 
 import javax.imageio.ImageIO;
 
@@ -45,21 +38,30 @@ public class ProductController {
     @Autowired
     private CategoryDao categoryDao;
 
+    @Autowired
+    private ProviderDao providerDao;
+
+    @Autowired
+    private OrderStatusDao orderStatusDao;
+
+    @Autowired
+    private ProductOrderDao productOrderDao;
+
     static class OrderDTO{
         int userId;
-        String methodId;
-        List<ProductTMP> products;
+        int methodId;
+        List<ProductDTO> products;
 
         public int getUserId() { return this.userId; }
-        public String getMethodId() { return this.methodId; }
-        public List<ProductTMP> getProducts() { return this.products; }
+        public int getMethodId() { return this.methodId; }
+        public List<ProductDTO> getProducts() { return this.products; }
 
         public void setUserId(int userId) { this.userId = userId; }
-        public void setMethodId(String methodId) { this.methodId = methodId; }
-        public void setProducts(List<ProductTMP> products) { this.products = products; }
+        public void setMethodId(int methodId) { this.methodId = methodId; }
+        public void setProducts(List<ProductDTO> products) { this.products = products; }
     }
 
-    static class ProductTMP {
+    static class ProductDTO {
         int quantity;
         Product product;
 
@@ -121,17 +123,33 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/api/orders/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createOrder(@RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<User> createOrder(@RequestBody OrderDTO orderDTO) {
 
         int x = orderDTO.getUserId();
-        // public UserOrder(int idOrder, User user, Timestamp orderDatetime, Timestamp orderRealizationDatetime, String note, Provider provider, OrderStatus orderStatus,List productOrder) {
-        User user =userDao.findOne(x);
-        //User user = userService.findById(x);
-        UserOrder userOrder = new UserOrder(user, new Timestamp(System.currentTimeMillis()), null,"note", null, null, null);
-        // LINIJKA WYZEJ WYWALA, nie wiem czy ten obiekt "userOrder" tak powinien wygladac,
-        userOrderDao.save(userOrder);
-        //orderService.saveOrder(userOrder);
+        int z = orderDTO.getMethodId();
+        List<ProductDTO> products = orderDTO.getProducts();
+
+        //lpeij nie uzywac find one
+//        User user = userDao.findOne(x);
+        User user = userDao.findByIdUser(x);
+        Provider provider = providerDao.findOne(z);
+        OrderStatus orderStatus = orderStatusDao.findOne(1);
+        UserOrder userOrder = new UserOrder(user, new Timestamp(System.currentTimeMillis()), null,"", provider, orderStatus, null);
+        UserOrder freshUserOrder = userOrderDao.save(userOrder);
+
+        for (ProductDTO productDTO : products) {
+            ProductOrder productOrder = new ProductOrder();
+            productOrder.setAmount(productDTO.getQuantity());
+            productOrder.setActualPrice(productDTO.getProduct().getPrice().multiply(BigDecimal.valueOf(productDTO.getQuantity())));
+
+            Product product = productDao.findOne(productDTO.getProduct().getId());
+            ProductOrderId productOrderId = new ProductOrderId(freshUserOrder, product);
+            productOrder.setIdProductOrder(productOrderId);
+            productOrderDao.save(productOrder);
+        }
+
+
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 }

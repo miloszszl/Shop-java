@@ -26,5 +26,6 @@ public interface UserDao extends CrudRepository<User, Integer> {
     User findByLoginAndPassword(String login,String password);
     void delete(User entity);
     void deleteAll();
+    User findByIdUser(int primaryKey);
 
 }

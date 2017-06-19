@@ -153,7 +153,7 @@ export class HomeComponent{
       //Filter by categories
       if(filterAllData || filter.type=='category'){
         let passCategoryFilter = false
-        let product_category = product.categories.id
+        let product_category = product.category.id
         
           if(!passCategoryFilter){
             passCategoryFilter = this.mainFilter.categories.reduce((found, category) => {
