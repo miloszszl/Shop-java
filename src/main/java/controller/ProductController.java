@@ -79,6 +79,7 @@ public class ProductController {
 
     // {"name":"asd","price":null,"quantity":null,"category":"KLAPKI","brand":"KUBOT","description":"asdasd"}
     static class NewProductDTO {
+        int id;
         String name;
         BigDecimal price;
         int quantity;
@@ -86,6 +87,7 @@ public class ProductController {
         String brand;
         String description;
 
+        public int getId() { return this.id; }
         public String getName() { return this.name; }
         public BigDecimal getPrice() { return this.price; }
         public int getQuantity() { return this.quantity; }
@@ -93,6 +95,7 @@ public class ProductController {
         public String getBrand() { return this.brand; }
         public String getDescription() { return this.description; }
 
+        public void setId(int id) {this.id = id; }
         public void setName(String name) { this.name = name; }
         public void setPrice(BigDecimal price) { this.price = price; }
         public void setQuantity(int quantity) { this.quantity = quantity; }
@@ -126,6 +129,27 @@ public class ProductController {
         product.setAmount(newProductDTO.getQuantity());
         product.setDescription((newProductDTO.getDescription()));
         product.setPhoto("eb6845e4-402c-40bf-93db-8efc70de3366");
+        product.setCategory(cat);
+        product.setBrand(brand);
+
+        productDao.save(product);
+        return new ResponseEntity<NewProductDTO>(newProductDTO, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/products/", method = RequestMethod.PUT)
+    public ResponseEntity<NewProductDTO> updateProduct(@RequestBody NewProductDTO newProductDTO) {
+
+        // public Product(int id, String name, String description, int amount, Category category, Brand brand, BigDecimal price, double totalRate, Set<ProductOrder> productOrder, Set<Comment> comments, Set<Rate> rates) {
+
+        Category cat = categoryDao.findByCategoryNameIgnoreCase(newProductDTO.getCategory());
+        Brand brand = brandDao.findByBrandName(newProductDTO.getBrand());
+        Product product = productDao.findOne(newProductDTO.getId());
+
+        product.setName(newProductDTO.getName());
+        product.setPrice(newProductDTO.getPrice());
+        product.setAmount(newProductDTO.getQuantity());
+        product.setDescription((newProductDTO.getDescription()));
+        //product.setPhoto("eb6845e4-402c-40bf-93db-8efc70de3366");
         product.setCategory(cat);
         product.setBrand(brand);
 
@@ -205,6 +229,18 @@ public class ProductController {
     public ResponseEntity<List<UserOrder>> listAllOrders() {
 
         List<UserOrder> allUserOrders = userOrderDao.findAll();
+
+        if(allUserOrders.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<UserOrder>>(allUserOrders, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/orders/{user}", method = RequestMethod.GET)
+    public ResponseEntity<List<UserOrder>> listAllUserOrders(@PathVariable("user") String user) {
+
+        User user1 = userDao.findByLoginIgnoreCase(user);
+        List<UserOrder> allUserOrders = userOrderDao.findByUser_IdUser(user1.getIdUser());
 
         if(allUserOrders.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

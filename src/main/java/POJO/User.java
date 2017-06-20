@@ -217,17 +217,6 @@ public class User {
         return state;
     }
 
-    public void setstate(String state) throws BufferOverflowException{
-        if(state.length()>100)
-        {
-            throw new BufferOverflowException();
-        }
-        else
-        {
-            this.state = state;
-        }
-    }
-
     public String getPostalCode() {
         return postalCode;
     }

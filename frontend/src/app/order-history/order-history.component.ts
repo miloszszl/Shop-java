@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from '../_models/index';
-import { UserService } from '../_services/index';
+import { UserService, ProductService } from '../_services/index';
 import { CartService } from '../cart.service';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -12,43 +13,44 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 export class OrderHistoryComponent implements OnInit {
+
+    orders:any;
+    detailsView: boolean = false;
+    currentOrder: any = null;
+    currentProducts: any = null;
     
-    currentUser: User;
-    users: User[] = [];
-    products: any;
-    cartTotal: number;
-    deliveryMethods: {id: number, name: string, price: number} [] = 
-    [
-        {
-            "id": 1,
-            "name": "UPS Kurier",
-            "price": 13
-        },
-        {
-            "id": 2,
-            "name": "Poczta polska",
-            "price": 7
-        },
-        {
-            "id": 3,
-            "name": "Odbiór osobisty",
-            "price": 0
-        }
-    ];
-
-    selectedDeliveryMethod: any;
-
-    changeDetectorRef: ChangeDetectorRef
-
-    constructor(private cartService: CartService, private userService: UserService,  changeDetectorRef: ChangeDetectorRef) {
-        this.changeDetectorRef = changeDetectorRef
+    constructor(private cartService: CartService, private productService: ProductService, private route: ActivatedRoute,
+        private router: Router, private userService: UserService) {
     }
 
     ngOnInit() {
-        this.products = this.cartService.getProducts();
-        this.changeDetectorRef.detectChanges()
-        
-  }
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        let username = currentUser.username;
+        console.debug("asdasdasdadasdad")
+        console.debug(username)
+        this.orders = this.productService.getAllUserOrders(username).subscribe(orders => {
+          this.orders = orders
+          console.debug(orders);
+        })
 
+    }
 
+    showDetails(order){
+        console.debug(order);
+        this.currentOrder = order;
+        this.currentProducts = this.currentOrder.productOrder
+        this.detailsView = true;
+    }
+
+    showList(){
+        this.detailsView = false;
+    }
+
+    getTotalPrice(){
+        let sum= 0;
+        this.currentProducts.forEach(element => {
+            sum += element.actualPrice;
+        });
+        return sum;
+    }
 }
