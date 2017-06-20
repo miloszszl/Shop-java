@@ -27,6 +27,11 @@ export class ProductService {
         return this.http.get('/api/orders/', this.jwt()).map((response: Response) => response.json());
     }
 
+    getAllUserOrders(user){
+        console.debug("GETTING ALL ORDERS")
+        return this.http.get('/api/orders/' + user, this.jwt()).map((response: Response) => response.json());
+    }
+
     switchStatus(idOrder){
         return this.http.patch('/api/orders/' + idOrder + '/orderStatus/', JSON.stringify(idOrder), this.jwt())//.map((response: Response) => response.json());
     }
@@ -34,6 +39,11 @@ export class ProductService {
     addProduct(product){
         console.debug("POSTING2!")
         return this.http.post('/api/products/', JSON.stringify(product), this.jwt()).map((response: Response) => response.json());
+    }
+
+    updateProduct(product){
+        console.debug("PUTTING!")
+        return this.http.put('/api/products/', JSON.stringify(product), this.jwt()).map((response: Response) => response.json());
     }
 
     private jwt() {

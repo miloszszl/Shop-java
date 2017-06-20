@@ -14,18 +14,24 @@ export class ShowcaseComponent implements OnInit {
 
   @Input() products: Product[]
 
-  detailViewActive: boolean
+  //detailViewActive: boolean
 
   constructor(private cartService: CartService) {
+
+    
     
   }
   ngOnInit() {
-    this.detailViewActive = false
+    //this.detailViewActive = false
     console.debug("working")
+    this.products.forEach(element => {
+      element.active=false;
+    });
   }
 
-  onProductClick(){
-    this.detailViewActive = !this.detailViewActive
+  onProductClick(product){
+    product.active=!product.active
+    //this.detailViewActive = !this.detailViewActive
   }
 
   onAddToCart(product){

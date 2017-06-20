@@ -32,11 +32,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/users/").permitAll()
                 //.antMatchers(HttpMethod.GET, "/api/users/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/orders/").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/api/orders/{id}").hasRole("USER")
                 .antMatchers(HttpMethod.GET, "/api/orders/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/products/categories/").permitAll()          //test only
                 .antMatchers(HttpMethod.GET, "/city/").permitAll()                             //test only
                 .antMatchers(HttpMethod.GET, "/api/users/").permitAll()                        //test only
-                .antMatchers(HttpMethod.GET, "/api/user/{id}").permitAll()                     //test only
+                .antMatchers(HttpMethod.GET, "/api/user/{user}").permitAll()                     //test only
                 .antMatchers(HttpMethod.PUT, "/api/user/{id}").permitAll()                     //test only
                 .antMatchers(HttpMethod.DELETE, "/api/user/{id}").permitAll()                  //test only
                 .antMatchers(HttpMethod.GET, "/api/users/{login}").permitAll()              //test only

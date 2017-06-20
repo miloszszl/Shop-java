@@ -16,6 +16,7 @@ public interface UserOrderDao extends CrudRepository<UserOrder, Integer> {
 
     UserOrder findOne(int primaryKey);
     List<UserOrder> findAll();
+    List<UserOrder> findByUser_IdUser(int primaryKey);
     List<UserOrder> findAllByOrderByOrderRealizationDatetimeAsc();    //not sure if works
     UserOrder save(UserOrder u);
     boolean exists(Integer primaryKey);

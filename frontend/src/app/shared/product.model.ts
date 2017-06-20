@@ -7,4 +7,5 @@ export class Product{
   photo: string
   description: string
   amount: number
+  active:boolean
 }

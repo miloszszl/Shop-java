@@ -70,7 +70,7 @@ public class UserController {
     @RequestMapping(value = "/api/users", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
 
-        AccountType accountType=accountTypeDao.findByAccountTypeNameIgnoreCase("user");
+        AccountType accountType=accountTypeDao.findByAccountTypeNameIgnoreCase("ROLE_USER");
         user.setAccountType(accountType);
 
         if(userDao.findByLoginIgnoreCase(user.getLogin())!=null){

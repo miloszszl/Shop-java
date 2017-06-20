@@ -14,7 +14,7 @@
             <hr>
             <div class="row">
               <div class="col-8-sm view-details-wrapper">
-                <button type="button" class="view" (click)='onProductClick()'>View details</button>
+                <button type="button" class="view" (click)='onProductClick(product)'>View details</button>
               </div>
               <div class="col-4-sm add-cart-wrapper">
                 <button type="button" class="cart" (click)="onAddToCart(product)"><img src="../../assets/cart_primary.svg" alt="" /></button>
@@ -27,14 +27,14 @@
           </div>
         </div>
         <!--span class="category-name" *ngFor='let category of product.categories'>{{category}}</span-->
-        <div class="detail-view" [class.active]='detailViewActive'>
-          <div class="bg" [class.shown]='detailViewActive'></div>
+        <div class="detail-view" [class.active]='product.active'>
+          <div class="bg" [class.shown]='product.active'></div>
           <div class="info-wrapper">
             <p class="d-holder d-title">{{product.name}}</p>
             <p class="d-holder d-price">$ {{product.price}}</p>
             <p class="d-holder d-description">{{product.description}}</p>
           </div>
-          <button type="button" class="hide-detail-btn" (click)='onProductClick()'>Click to hide</button>
+          <button type="button" class="hide-detail-btn" (click)='onProductClick(product)'>Click to hide</button>
         </div>
       </div>
     </div>

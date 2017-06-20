@@ -43,14 +43,24 @@ export class ProductEditorComponent implements OnInit {
 
     edit(product){
         this.editing = true;
-        this.model = product;
+        //this.model = product;
+        console.debug(this.model);
+        this.model.id = product.id;
+        this.model.name = product.name
+        this.model.description = product.description
+        this.model.quantity = product.amount
+        this.model.category = product.category.categoryName
+        this.model.brand = product.brand.brandName
+        this.model.price = product.price
+        console.debug(this.model);
+        //product // Object { id: 4, name: "asd", description: "asdasd", amount: 123, photo: "eb6845e4-402c-40bf-93db-8efc70de3366", category: Object, brand: Object, price: 123, totalRate: 0, comments: Array[0] }
     }
 
     onSubmit(){
-        this.productsService.addProduct(this.model).subscribe(
+        this.productsService.updateProduct(this.model).subscribe(
             data => {
                 console.debug("A")
-                this.alertService.success('Dodano produkt', true);
+                this.alertService.success('Zaktualizowano produkt', true);
                 this.router.navigate(['/product-editor']);
             },
             error => {

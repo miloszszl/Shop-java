@@ -30,7 +30,7 @@ export class NavbarComponent{
         // reset login status
         //this.authenticationService.logout();
         if(this.user = JSON.parse(localStorage.getItem('currentUser'))){
-            console.debug("juz bylem zalogowany")
+            //console.debug("juz bylem zalogowany")
             this.loggedin = true;
         }
 
