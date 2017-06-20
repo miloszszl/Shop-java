@@ -117,4 +117,9 @@ public class UserOrder {
     public void setProductOrder(List<ProductOrder> productOrder) {
         this.productOrder = productOrder;
     }
+
+    @Override
+    public String toString(){
+        return "toString";
+    }
 }

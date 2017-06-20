@@ -16,7 +16,7 @@ public class ProductOrderId implements java.io.Serializable{
     @JsonIgnore
     private UserOrder userOrder;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
+    //@JsonIgnore
     private Product product;
 
     public ProductOrderId(){}
@@ -40,5 +40,10 @@ public class ProductOrderId implements java.io.Serializable{
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString(){
+        return "toString";
     }
 }

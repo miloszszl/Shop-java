@@ -84,4 +84,9 @@ public class Provider {
     public void setUserOrders(List<UserOrder> userOrders) {
         this.userOrders = userOrders;
     }
+
+    @Override
+    public String toString(){
+        return "toString";
+    }
 }

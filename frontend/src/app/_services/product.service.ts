@@ -22,6 +22,20 @@ export class ProductService {
         //return this.http.get('/api/products/categories/', this.jwt()).map((response: Response) => response.json());
     }
 
+    getAllOrders(){
+        console.debug("GETTING ALL ORDERS")
+        return this.http.get('/api/orders/', this.jwt()).map((response: Response) => response.json());
+    }
+
+    switchStatus(idOrder){
+        return this.http.patch('/api/orders/' + idOrder + '/orderStatus/', JSON.stringify(idOrder), this.jwt())//.map((response: Response) => response.json());
+    }
+    
+    addProduct(product){
+        console.debug("POSTING2!")
+        return this.http.post('/api/products/', JSON.stringify(product), this.jwt()).map((response: Response) => response.json());
+    }
+
     private jwt() {
         // create authorization header with jwt token
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));

@@ -316,4 +316,11 @@ public class User {
     public void setUserOrders(List<UserOrder> userOrders) {
         this.userOrders = userOrders;
     }
+
+    //https://stackoverflow.com/questions/17445657/hibernate-onetomany-java-lang-stackoverflowerror
+    // Applying solution from above to some classes fixed problem, however I don't know which one.
+    @Override
+    public String toString(){
+        return "toString";
+    }
 }

@@ -1,5 +1,5 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
+<div [hidden]="!editing" class="container">
 	<form (ngSubmit)="onSubmit()" #productForm="ngForm">
 	<div class="form-group">
 		<label for="exampleInputEmail1">Name</label>
@@ -37,4 +37,45 @@
 	<button type="submit" class="btn btn-primary" [disabled]="!productForm.form.valid">Submit</button>
 	</form>
 	<a [routerLink]="['/']" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
+</div>
+
+<div [hidden]="editing" class="container">
+
+<table id="cart" class="table table-hover table-condensed">
+    				<thead>
+						<tr>
+							<th>Product</th>
+							<th>Price</th>
+							<th>Quantity</th>
+							<th>Category</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of products; let i = index; let odd = odd; let even = even">
+							<td data-th="Product">
+								<div class="row">
+									<div class="col-sm-2 hidden-xs"><img src="/api/image/{{item.photo}}/" alt="..." class="img-responsive"/></div>
+									<div class="col-sm-10">
+										<h4 class="nomargin">{{item.name}}</h4>
+										<p>>{{item.description}}</p>
+									</div>
+								</div>
+							</td>
+							<td data-th="Price">{{item.price | number:'.2-2'}} zł</td>
+							<td data-th="Quantity">
+							 {{ item.amount }}
+							</td>
+							<td data-th="Subtotal" class="text-center">{{item.category.categoryName }}</td>
+							<td class="actions" data-th="">
+								<button class="btn btn-danger btn-sm" (click)="edit(item)"><i class="fa fa-trash-o"></i></button>								
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td><a [routerLink]="['/']" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+						</tr>
+					</tfoot>
+				</table>						
 </div>

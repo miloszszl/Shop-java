@@ -21,6 +21,7 @@ import { FrontComponent } from './front/index';
 import { PaymentComponent } from './payment/index';
 import { NavbarComponent } from './navbar/index';
 import { ProductManagerComponent } from './product-manager/index'
+import { ProductEditorComponent } from './product-editor/index'
 import { OrderHistoryComponent } from './order-history/index'
 import { AccountComponent } from './account/index'
 import { OrdersComponent } from './orders/index'
@@ -36,6 +37,8 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { FiltersComponent } from './filters/filters.component';
 import { CartComponent } from './cart/cart.component';
 
+import { ImageUploadModule } from '../../node_modules/angular2-image-upload';
+
 
 @NgModule({
     imports: [
@@ -43,6 +46,7 @@ import { CartComponent } from './cart/cart.component';
         FormsModule,
         HttpModule,
         JsonpModule,
+        ImageUploadModule.forRoot(),
         routing
     ],
     declarations: [
@@ -56,6 +60,7 @@ import { CartComponent } from './cart/cart.component';
         FrontComponent,
         PaymentComponent,
         ProductManagerComponent,
+        ProductEditorComponent,
         OrderHistoryComponent,
         AccountComponent,
         OrdersComponent,

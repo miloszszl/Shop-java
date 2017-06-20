@@ -21,5 +21,6 @@ public interface UserOrderDao extends CrudRepository<UserOrder, Integer> {
     boolean exists(Integer primaryKey);
     void delete(UserOrder entity);
     void deleteAll();
+    UserOrder findByIdUserOrder(int primaryKey);
 
 }

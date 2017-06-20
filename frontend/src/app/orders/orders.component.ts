@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from '../_models/index';
-import { UserService } from '../_services/index';
+import { UserService, ProductService } from '../_services/index';
 import { CartService } from '../cart.service';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -12,55 +13,53 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 export class OrdersComponent implements OnInit {
+
+    orders:any;
+    detailsView: boolean = false;
+    currentOrder: any = null;
+    currentProducts: any = null;
     
-    currentUser: User;
-    users: User[] = [];
-    products: any;
-    cartTotal: number;
-    deliveryMethods: {id: number, name: string, price: number} [] = 
-    [
-        {
-            "id": 1,
-            "name": "UPS Kurier",
-            "price": 13
-        },
-        {
-            "id": 2,
-            "name": "Poczta polska",
-            "price": 7
-        },
-        {
-            "id": 3,
-            "name": "Odbiór osobisty",
-            "price": 0
-        }
-    ];
-
-    selectedDeliveryMethod: any;
-
-    changeDetectorRef: ChangeDetectorRef
-
-    constructor(private cartService: CartService, private userService: UserService,  changeDetectorRef: ChangeDetectorRef) {
-        this.changeDetectorRef = changeDetectorRef
+    constructor(private cartService: CartService, private productService: ProductService,         private route: ActivatedRoute,
+        private router: Router,) {
     }
 
     ngOnInit() {
-        this.products = this.cartService.getProducts();
-        this.changeDetectorRef.detectChanges()
-        
-  }
+        this.orders = this.productService.getAllOrders().subscribe(orders => {
+          this.orders = orders
+          console.debug(orders);
+        })
 
-  getTotalPrice() {
-      let sum = 0;
-      this.products.forEach(element => {
-          sum += element.product.price * element.quantity
-      });
-      //sum + this.selectedDeliveryMethod.price
+    }
+
+    showDetails(order){
+        console.debug(order);
+        this.currentOrder = order;
+        this.currentProducts = this.currentOrder.productOrder
+        this.detailsView = true;
+    }
+
+    showList(){
+        this.detailsView = false;
+    }
+
+    getTotalPrice(){
+        let sum= 0;
+        this.currentProducts.forEach(element => {
+            sum += element.actualPrice;
+        });
         return sum;
-  }
+    }
 
-  deleteProduct(product){
-    this.cartService.deleteProductFromCart(product)
-  }
-
+    changeStatus(){
+        console.debug("ZMIANA STATUSU");
+        console.debug(this.currentOrder)
+        this.productService.switchStatus(this.currentOrder.idOrder).subscribe( data => {
+            this.orders = this.productService.getAllOrders().subscribe(orders => {
+            this.orders = orders;
+            this.router.navigate(['/orders']);
+            console.debug("MAKIN BAKIN");
+        })
+            }
+        );
+    }
 }

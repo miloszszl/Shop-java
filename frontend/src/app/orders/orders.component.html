@@ -1,5 +1,149 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
-	<a [routerLink]="['/']" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
-	ORDERSlol
+<div [hidden]="detailsView" class="container">
+	<table id="cart" class="table table-hover table-condensed">
+    				<thead>
+						<tr>
+							<th>Id</th>
+							<th>User</th>
+							<th>Date1</th>
+							<th>Date2</th>
+							<th>Status</th>
+							<th>Button</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let order of orders; let i = index; let odd = odd; let even = even">
+							<td data-th="Id">
+								{{order.idOrder}}
+							</td>
+							<td data-th="User">
+								{{order.user.login}}
+							</td>
+							<td data-th="Date1">
+								{{order.orderDatetime | date:'medium' }}
+							</td>
+							<td data-th="Date2">
+								{{(order.orderRealizationDatetime | date:'medium') || "brak" }}
+							</td>
+							<td data-th="Status">
+								{{order.orderStatus.orderStatusName}}
+							</td>
+							<td class="actions" data-th="">
+								<button class="btn btn-danger btn-sm" (click)="showDetails(order)"><i class="fa fa-trash-o"></i></button>								
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td><a [routerLink]="['/']" class="btn btn-warning"><i class="fa fa-angle-left"></i> Back</a></td>
+							<td colspan="2" class="hidden-xs"></td>
+						</tr>
+					</tfoot>
+				</table>			
+</div>
+
+<!-- DETAILS VIEW -->
+
+<div [hidden]="!detailsView" class="container">
+		<table id="cart" class="table table-hover table-condensed">
+    				<thead>
+						<tr>
+							<th>Address</th>
+							<th>User</th>
+							<th>Przyjęto</th>
+							<th>Wysłano</th>
+							<th>Status</th>
+							<th>Button</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td data-th="Address">
+								<div class="row">
+    								<div class="col-xs-12">
+    									<address>
+        									<strong>Shipping To:</strong><br>
+												{{currentOrder.user.firstName}} {{currentOrder.user.lastName}}<br>
+												{{currentOrder.user.streetName}}/{{currentOrder.user.houseNumber}}<br>
+												{{currentOrder.user.city2}}, {{currentOrder.user.state}}<br>
+												{{currentOrder.user.postalCode}}<br>
+												{{currentOrder.user.phone}}<br>
+												{{currentOrder.user.email}}
+    									</address>
+    								</div>
+    							</div>
+							</td>
+							<td data-th="User">
+								{{currentOrder.user.login}}
+							</td>
+							<td data-th="Date1">
+								{{currentOrder.orderDatetime | date:'medium' }}
+							</td>
+							<td data-th="Date2">
+								{{(currentOrder.orderRealizationDatetime | date:'medium') || "brak" }}
+							</td>
+							<td data-th="Status">
+								{{currentOrder.orderStatus.orderStatusName}}
+							</td>
+							<td class="actions" data-th="">
+								<button class="btn btn-danger btn-sm"  (click)="changeStatus()" ><i class="fa fa-trash-o"></i></button>								
+							</td>
+						</tr>
+					</tbody>
+				</table>	
+
+    <div class="row">
+    	<div class="col-md-12">
+    		<div class="panel panel-default">
+    			<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Order summary</strong></h3>
+    			</div>
+    			<div class="panel-body">
+    				<div class="table-responsive">
+    					<table class="table table-condensed">
+    						<thead>
+                                <tr>
+									<td><strong>ID</strong></td>
+        							<td><strong>Item</strong></td>
+        							<td class="text-center"><strong>Price</strong></td>
+        							<td class="text-center"><strong>Quantity</strong></td>
+        							<td class="text-right"><strong>Totals</strong></td>
+                                </tr>
+    						</thead>
+    						<tbody>
+    							<!-- foreach ($userOrder->lineItems as $line) or some such thing here -->
+    							<tr *ngFor="let item of currentProducts">
+									<td>{{item.idProductOrder.product.id}}</td>
+    								<td>{{item.idProductOrder.product.name}}</td>
+    								<td class="text-center">{{item.idProductOrder.product.price | number:'.2-2'}} zł</td>
+    								<td class="text-center">{{item.amount}}</td>
+    								<td class="text-right">{{item.actualPrice | number:'.2-2'}} zł</td>
+    							</tr>
+    							<tr>
+									<td class="thick-line"></td>
+    								<td class="thick-line"></td>
+    								<td class="thick-line"></td>
+    								<td class="thick-line text-center"><strong>Subtotal</strong></td>
+    								<td class="thick-line text-right"> {{ getTotalPrice() | number:'.2-2'}} zł</td>
+    							</tr>
+    							<tr>
+									<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Shipping</strong></td>
+    								<td class="no-line text-right">{{ currentOrder.provider.providerPrice | number:'.2-2'}} zł</td>
+    							</tr>
+    							<tr>
+									<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Total</strong></td>
+    								<td class="no-line text-right">{{ getTotalPrice()  + currentOrder.provider.providerPrice | number:'.2-2'}} zł</td>
+    							</tr>
+    						</tbody>
+    					</table>
+
+
+
+	<a class="btn btn-success btn-block" (click)="showList()">Back <i class="fa fa-angle-right"></i></a>
 </div>

@@ -186,4 +186,9 @@ public class Product {
     public void setRates(Set<Rate> rates) {
         this.rates = rates;
     }
+
+    @Override
+    public String toString(){
+        return "toString";
+    }
 }

@@ -53,4 +53,9 @@ public class ProductOrder {
     public void setActualPrice(BigDecimal actualPrice) {
         this.actualPrice = actualPrice;
     }
+
+    @Override
+    public String toString(){
+        return "toString";
+    }
 }

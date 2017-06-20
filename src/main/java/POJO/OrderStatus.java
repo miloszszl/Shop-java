@@ -54,4 +54,9 @@ public class OrderStatus {
     public void setUserOrders(List<UserOrder> userOrders) {
         this.userOrders = userOrders;
     }
+
+    @Override
+    public String toString(){
+        return "toString";
+    }
 }

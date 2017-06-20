@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/index';
 import { FrontComponent } from './front/index';
 import { PaymentComponent } from './payment/index';
 import { ProductManagerComponent } from './product-manager/index'
+import { ProductEditorComponent } from './product-editor/index'
 import { OrderHistoryComponent } from './order-history/index'
 import { AccountComponent } from './account/index'
 import { OrdersComponent } from './orders/index'
@@ -21,7 +22,8 @@ const appRoutes: Routes = [
     { path: 'storeFront', component: FrontComponent },
     { path: 'payment', component: PaymentComponent, canActivate: [AuthGuard], data: { role: "ROLE_USER" }},
     { path: 'billing', component: BillingComponent, },  
-    { path: 'products', component: ProductManagerComponent, canActivate: [AuthGuard], data: { role: "ROLE_ADMIN" } },
+    { path: 'add-product', component: ProductManagerComponent, canActivate: [AuthGuard], data: { role: "ROLE_ADMIN" } },
+    { path: 'edit-product', component: ProductEditorComponent, canActivate: [AuthGuard], data: { role: "ROLE_ADMIN" } },
     { path: 'history', component: OrderHistoryComponent, canActivate: [AuthGuard], data: { role: "ROLE_USER" } },
     { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
     { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard], data: { role: "ROLE_ADMIN" } },
