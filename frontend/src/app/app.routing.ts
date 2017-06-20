@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     { path: 'billing', component: BillingComponent, },  
     { path: 'add-product', component: ProductManagerComponent, canActivate: [AuthGuard], data: { role: "ROLE_ADMIN" } },
     { path: 'edit-product', component: ProductEditorComponent, canActivate: [AuthGuard], data: { role: "ROLE_ADMIN" } },
-    //{ path: 'history', component: OrderHistoryComponent, canActivate: [AuthGuard], data: { role: "ROLE_USER" } },
+    { path: 'history', component: OrderHistoryComponent, canActivate: [AuthGuard], data: { role: "ROLE_USER" } },
     { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
     { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard], data: { role: "ROLE_ADMIN" } },
 
